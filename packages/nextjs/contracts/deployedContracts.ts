@@ -4,6 +4,2783 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  31337: {
+    DEX: {
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InsufficientInput",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InsufficientLiquidity",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TokenAddressNotSet",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TransferFailed",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "contractHasAlreadyLiquidity",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "swapper",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenOutput",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "ethInput",
+              type: "uint256",
+            },
+          ],
+          name: "EthToTokenSwap",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "liquidityProvider",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "liquidityMinted",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "ethInput",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokensInput",
+              type: "uint256",
+            },
+          ],
+          name: "LiquidityProvided",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "liquidityRemover",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "liquidityWithdrawn",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokensOutput",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "ethOutput",
+              type: "uint256",
+            },
+          ],
+          name: "LiquidityRemoved",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "swapper",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokensInput",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "ethOutput",
+              type: "uint256",
+            },
+          ],
+          name: "TokenToEthSwap",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "deposit",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokensDeposited",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "ethToToken",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenOutput",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "lp",
+              type: "address",
+            },
+          ],
+          name: "getLiquidity",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokens",
+              type: "uint256",
+            },
+          ],
+          name: "init",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "liquidity",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "xInput",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "xReserves",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "yReserves",
+              type: "uint256",
+            },
+          ],
+          name: "price",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "yOutput",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "token_addr",
+              type: "address",
+            },
+          ],
+          name: "setTokenAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenInput",
+              type: "uint256",
+            },
+          ],
+          name: "tokenToEth",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "ethOutput",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalLiquidity",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "withdraw",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "eth_amount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "token_amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    OnChainAI: {
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "router",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EmptyArgs",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EmptySource",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NoInlineSecrets",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyRouterCanFulfill",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+          ],
+          name: "UnexpectedRequestID",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "javascript",
+              type: "string",
+            },
+          ],
+          name: "Javascript",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferRequested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "request",
+              type: "string",
+            },
+          ],
+          name: "Request",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestFulfilled",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestSent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "err",
+              type: "string",
+            },
+          ],
+          name: "Response",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "acceptOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donHostedSecretsVersion",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "gasLimit",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "response",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes",
+              name: "err",
+              type: "bytes",
+            },
+          ],
+          name: "handleOracleFulfillment",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "javascript",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastError",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastRequestId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastResponse",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastUserPrompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "userPrompt",
+              type: "string",
+            },
+          ],
+          name: "sendRequest",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "donHostedSecretsVersion_",
+              type: "uint64",
+            },
+          ],
+          name: "setDonHostedSecretsVersion",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          name: "setDonID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+          ],
+          name: "setGasLimit",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+          ],
+          name: "setJavascript",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+          ],
+          name: "setSubscriptionId",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "subscriptionId",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    ScamHunterToken: {
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "onChainAI_address",
+              type: "address",
+            },
+          ],
+          stateMutability: "payable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "_contractAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "analysis",
+              type: "string",
+            },
+          ],
+          name: "Analyzed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "allowance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "analyzedContract",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burnFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "contractAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "subtractedValue",
+              type: "uint256",
+            },
+          ],
+          name: "decreaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "addedValue",
+              type: "uint256",
+            },
+          ],
+          name: "increaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {
+        allowance: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        approve: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        balanceOf: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        decimals: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        decreaseAllowance: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        increaseAllowance: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        name: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        symbol: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        totalSupply: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        transfer: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        transferFrom: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        burn: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        burnFrom: "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+    YourContract: {
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "greetingSetter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newGreeting",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "premium",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "GreetingChange",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "greeting",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "premium",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_newGreeting",
+              type: "string",
+            },
+          ],
+          name: "setGreeting",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userGreetingCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  84532: {
+    OnChainAI: {
+      address: "0xbfFE7bC0A26FfE6f7882ABb6B7C4f299A5138E66",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "router",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EmptyArgs",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EmptySource",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NoInlineSecrets",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyRouterCanFulfill",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+          ],
+          name: "UnexpectedRequestID",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "javascript",
+              type: "string",
+            },
+          ],
+          name: "Javascript",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferRequested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "request",
+              type: "string",
+            },
+          ],
+          name: "Request",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestFulfilled",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestSent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "err",
+              type: "string",
+            },
+          ],
+          name: "Response",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "acceptOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donHostedSecretsVersion",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "gasLimit",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "response",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes",
+              name: "err",
+              type: "bytes",
+            },
+          ],
+          name: "handleOracleFulfillment",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "javascript",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastError",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastRequestId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastResponse",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastUserPrompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "userPrompt",
+              type: "string",
+            },
+          ],
+          name: "sendRequest",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "donHostedSecretsVersion_",
+              type: "uint64",
+            },
+          ],
+          name: "setDonHostedSecretsVersion",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          name: "setDonID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+          ],
+          name: "setGasLimit",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+          ],
+          name: "setJavascript",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+          ],
+          name: "setSubscriptionId",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "subscriptionId",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  11155111: {
+    OnchainAI: {
+      address: "0x476b318Ea6B93F4a3347215eD06c77Af16cB1566",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "router",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EmptyArgs",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EmptySource",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NoInlineSecrets",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyRouterCanFulfill",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+          ],
+          name: "UnexpectedRequestID",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "javascript",
+              type: "string",
+            },
+          ],
+          name: "Javascript",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferRequested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "request",
+              type: "string",
+            },
+          ],
+          name: "Request",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestFulfilled",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestSent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "err",
+              type: "string",
+            },
+          ],
+          name: "Response",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "acceptOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donHostedSecretsVersion",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "gasLimit",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "response",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes",
+              name: "err",
+              type: "bytes",
+            },
+          ],
+          name: "handleOracleFulfillment",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "javascript",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastError",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastRequestId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastResponse",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastUserPrompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "userPrompt",
+              type: "string",
+            },
+          ],
+          name: "sendRequest",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "donHostedSecretsVersion_",
+              type: "uint64",
+            },
+          ],
+          name: "setDonHostedSecretsVersion",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          name: "setDonID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+          ],
+          name: "setGasLimit",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+          ],
+          name: "setJavascript",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+          ],
+          name: "setSubscriptionId",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "subscriptionId",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        handleOracleFulfillment: "@chainlink/contracts/src/v0.8/functions/v1_0_0/FunctionsClient.sol",
+        acceptOwnership: "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol",
+        owner: "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol",
+        transferOwnership: "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol",
+      },
+    },
+  },
+  11155420: {
+    OnChainAI: {
+      address: "0xd1ca741de2d2975822ADf4646Cf0A8AE3Df51c78",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "router",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EmptyArgs",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EmptySource",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NoInlineSecrets",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyRouterCanFulfill",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+          ],
+          name: "UnexpectedRequestID",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "javascript",
+              type: "string",
+            },
+          ],
+          name: "Javascript",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferRequested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "request",
+              type: "string",
+            },
+          ],
+          name: "Request",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestFulfilled",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "id",
+              type: "bytes32",
+            },
+          ],
+          name: "RequestSent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "err",
+              type: "string",
+            },
+          ],
+          name: "Response",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "acceptOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donHostedSecretsVersion",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "donId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "gasLimit",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "requestId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "response",
+              type: "bytes",
+            },
+            {
+              internalType: "bytes",
+              name: "err",
+              type: "bytes",
+            },
+          ],
+          name: "handleOracleFulfillment",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "javascript",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastError",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastRequestId",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastResponse",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastUserPrompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "userPrompt",
+              type: "string",
+            },
+          ],
+          name: "sendRequest",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "donHostedSecretsVersion_",
+              type: "uint64",
+            },
+          ],
+          name: "setDonHostedSecretsVersion",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "donId_",
+              type: "bytes32",
+            },
+          ],
+          name: "setDonID",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "gasLimit_",
+              type: "uint32",
+            },
+          ],
+          name: "setGasLimit",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "javascript_",
+              type: "string",
+            },
+          ],
+          name: "setJavascript",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint64",
+              name: "subscriptionId_",
+              type: "uint64",
+            },
+          ],
+          name: "setSubscriptionId",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "subscriptionId",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

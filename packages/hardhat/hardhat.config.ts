@@ -1,5 +1,10 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+// Use env-enc from chainlink to encrypt secrets on hard disk
+import { config as decodeConfig } from "@chainlink/env-enc";
+decodeConfig();
+// Unsecure dotenv config
+// import * as dotenv from "dotenv";
+// dotenv.config();
+
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-ethers";
 import "@nomicfoundation/hardhat-chai-matchers";
@@ -9,6 +14,7 @@ import "solidity-coverage";
 import "@nomicfoundation/hardhat-verify";
 import "hardhat-deploy";
 import "hardhat-deploy-ethers";
+import "./chainlink/tasks";
 
 // If not set, it uses ours Alchemy's default API key.
 // You can get your own at https://dashboard.alchemyapi.io
@@ -21,7 +27,7 @@ const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.17",
+    version: "0.8.19",
     settings: {
       optimizer: {
         enabled: true,
@@ -30,7 +36,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "baseSepolia",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -54,6 +60,10 @@ const config: HardhatUserConfig = {
       url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
+    baseSepolia: {
+      url: `https://base-sepolia.g.alchemy.com/v2/${providerApiKey}`,
+      accounts: [deployerPrivateKey],
+    },
     arbitrum: {
       url: `https://arb-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
@@ -66,7 +76,7 @@ const config: HardhatUserConfig = {
       url: `https://opt-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
-    optimismSepolia: {
+    "optimism-sepolia": {
       url: `https://opt-sepolia.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
@@ -96,10 +106,6 @@ const config: HardhatUserConfig = {
     },
     base: {
       url: "https://mainnet.base.org",
-      accounts: [deployerPrivateKey],
-    },
-    baseSepolia: {
-      url: "https://sepolia.base.org",
       accounts: [deployerPrivateKey],
     },
     scrollSepolia: {

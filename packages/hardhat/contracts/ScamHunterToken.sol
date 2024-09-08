@@ -8,15 +8,18 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { IOnChainAI } from "./IOnchainAI.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract ScamHunterToken is ERC20, ERC20Burnable, Ownable {
+contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
 	// Declare instance of Chainlink API Request Contract
 	IOnChainAI private onChainAI;
 
 	mapping(address => bool) public analyzedContract;
 
-	event Analyzed(address indexed _contractAddress, string analysis);
+	event Analyzed(address indexed _contractAddress, bytes32 analysis);
+	event RequestSended(address _contractAddresse, bool sended);
+	event RequestFailed(address _contractAddress, string error);
 
-	error InsufficiantBalance();
+	error InsufficientContractBalance();
+	error ContractNotAnalyzedYet();
 
 	// error ContractNotAnalyzed();
 
@@ -39,28 +42,27 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable {
 		return super.approve(spender, amount);
 	}
 
-	// Internal function to analyze a contract
-	function analyzeContract(
-		address memory _contractAddress
-	) internal nonReentrant {
+	function analyzeContract(address _contractAddress) public nonReentrant {
 		// Check if the contract has enough balance to proceed
 		if (address(this).balance < 0.002 ether) {
-			revert InsufficientBalance();
+			revert InsufficientContractBalance();
 		}
-
+		// Check if the contract has already been analyzed
+		if (analyzedContract[_contractAddress] = false) {
+			revert ContractNotAnalyzedYet();
+		}
+		analyzedContract[_contractAddress] = true;
 		string memory userPrompt = addressToString(_contractAddress);
-
 		try onChainAI.sendRequest{ value: 0.002 ether }(userPrompt) returns (
-			bytes32 res
+			bytes32
 		) {
-			// Mark the contract as analyzed only after a successful external call
-			analyzedContract[contractAddress] = true;
-
-			// Emit an event with the analysis result
-			emit Analyzed(contractAddress, res);
-		} catch {
-			// Handle the error case if the external call fails
-			console.log("Analysis failed for contract:", contractAddress);
+			// Emitting an event to log that the request has been sent successfully
+			emit RequestSended(_contractAddress, true);
+			// Optionally: Store the requestId to check it later if needed
+		} catch Error(string memory reason) {
+			// Catching and logging the reason of the failure in case of a failed transaction
+			emit RequestFailed(_contractAddress, reason);
+			analyzedContract[_contractAddress] = false;
 		}
 	}
 
@@ -70,7 +72,6 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable {
 	) internal pure returns (string memory) {
 		bytes32 value = bytes32(uint256(uint160(_addr)));
 		bytes memory alphabet = "0123456789abcdef";
-
 		bytes memory str = new bytes(42);
 		str[0] = "0";
 		str[1] = "x";

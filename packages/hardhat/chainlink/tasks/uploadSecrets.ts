@@ -47,6 +47,7 @@ onChainScope
     });
     await secretsManager.initialize();
     const encryptedSecretsObj = await secretsManager.encryptSecrets(secrets);
+    console.log("🚀 ~ .setAction ~ encryptedSecretsObj:", encryptedSecretsObj);
 
     console.log(
       `Upload encrypted secret to gateways ${gatewayUrls}. slotId ${slotIdNumber}. Expiration in minutes: ${expiration}`,

@@ -25,6 +25,7 @@ onChainScope
 
     // onchain config
     if (taskArgs.donid) {
+      console.log("🚀 ~ .setAction ~ taskArgs.donid:", taskArgs.donid);
       if (taskArgs.donid != (await onChainAI.donId())) {
         const tx = await onChainAI.setDonID(taskArgs.donid);
         console.log("OnChainAI setDonID Request", taskArgs.donid, `${config.explorer}/tx/${tx.hash}`);

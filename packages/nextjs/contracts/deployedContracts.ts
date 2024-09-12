@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   84532: {
     OnChainAI: {
-      address: "0xbfFE7bC0A26FfE6f7882ABb6B7C4f299A5138E66",
+      address: "0x6A93c85C0f21D01C52D0319d94e7afB95b6f52f8",
       abi: [
         {
           inputs: [
@@ -466,13 +466,13 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     ScamHunterToken: {
-      address: "0x19674d54274FffE25949723Ad52056075c3D3C1d",
+      address: "0x4C8A1c3619238c942d0468E43310712cE160d28E",
       abi: [
         {
           inputs: [
             {
               internalType: "address",
-              name: "onChainAI_address",
+              name: "onChainAIAddress",
               type: "address",
             },
           ],
@@ -481,7 +481,7 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "ContractNotAnalyzedYet",
+          name: "ContractNotAnalyzed",
           type: "error",
         },
         {
@@ -493,19 +493,44 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
-              indexed: true,
+              indexed: false,
               internalType: "address",
-              name: "_contractAddress",
+              name: "contractAddress",
               type: "address",
             },
             {
               indexed: false,
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "AnalysisRequestFailed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "contractAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "isSent",
+              type: "bool",
+            },
+            {
+              indexed: false,
               internalType: "bytes32",
-              name: "analysis",
+              name: "result",
               type: "bytes32",
             },
           ],
-          name: "Analyzed",
+          name: "AnalysisRequestSent",
           type: "event",
         },
         {
@@ -539,6 +564,25 @@ const deployedContracts = {
             {
               indexed: true,
               internalType: "address",
+              name: "contractAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bytes32",
+              name: "analysisResult",
+              type: "bytes32",
+            },
+          ],
+          name: "ContractAnalyzed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
               name: "previousOwner",
               type: "address",
             },
@@ -550,44 +594,6 @@ const deployedContracts = {
             },
           ],
           name: "OwnershipTransferred",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "address",
-              name: "_contractAddress",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "error",
-              type: "string",
-            },
-          ],
-          name: "RequestFailed",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "address",
-              name: "_contractAddresse",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "sended",
-              type: "bool",
-            },
-          ],
-          name: "RequestSended",
           type: "event",
         },
         {
@@ -643,32 +649,13 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
-              name: "_contractAddress",
+              name: "contractAddress",
               type: "address",
             },
           ],
           name: "analyzeContract",
           outputs: [],
           stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "analyzedContract",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
           type: "function",
         },
         {
@@ -804,6 +791,25 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "isContractAnalyzed",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {

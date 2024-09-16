@@ -1,14 +1,14 @@
-import { onChainScope } from "./scope";
+import { contractVerifierScope } from "./scope";
 import { readConfig, writeConfig } from "../lib/utils";
-import { OnChainAI } from "../../typechain-types";
-import AbiOnChainAI from "../abis/OnChainAI.json";
+import { ContractVerifier } from "../../typechain-types";
+import AbiContractVerifier from "../abis/ContractVerifier.json";
 import { types } from "hardhat/config";
 
-onChainScope
-  .task("config", "Display [and update] OnChainAI config")
+contractVerifierScope
+  .task("config", "Display [and update] ContractVerifier config")
   .addOptionalParam("donid", "Chainlink DON Id", undefined, types.int)
   .addOptionalParam("subid", "Chainlink Subscription Id", undefined, types.int)
-  .addOptionalParam("router", "Chainlink routeur address", undefined, types.string)
+  .addOptionalParam("router", "Chainlink router address", undefined, types.string)
   .addOptionalParam("explorer", "Chain explorer url", undefined, types.string)
   .addOptionalParam("chainname", "Chain name", undefined, types.string)
   .addOptionalParam("rpc", "Base Rpc url", undefined, types.string)
@@ -19,34 +19,39 @@ onChainScope
     console.log(config);
 
     const [signer] = await hre.ethers.getSigners();
-    const onChainAI = (await hre.ethers.getContractAt(AbiOnChainAI, config.onChainAI, signer)) as unknown as OnChainAI;
+    const contractVerifier = (await hre.ethers.getContractAt(
+      AbiContractVerifier,
+      config.contractVerifier,
+      signer,
+    )) as unknown as ContractVerifier;
+    console.log("🚀 ~ .setAction ~ contractVerifier:", contractVerifier);
 
     let update = false;
 
     // onchain config
     if (taskArgs.donid) {
       console.log("🚀 ~ .setAction ~ taskArgs.donid:", taskArgs.donid);
-      if (taskArgs.donid != (await onChainAI.donId())) {
-        const tx = await onChainAI.setDonID(taskArgs.donid);
-        console.log("OnChainAI setDonID Request", taskArgs.donid, `${config.explorer}/tx/${tx.hash}`);
+      if (taskArgs.donid != (await contractVerifier.donId())) {
+        const tx = await contractVerifier.setDonID(taskArgs.donid);
+        console.log("ContractVerifier setDonID Request", taskArgs.donid, `${config.explorer}/tx/${tx.hash}`);
         const res = await tx.wait();
-        console.log("OnChainAI setDonID Result", res?.status || "no status");
+        console.log("ContractVerifier setDonID Result", res?.status || "no status");
       }
       writeConfig(chainId, "donId", taskArgs.donid);
       update = true;
     }
     if (taskArgs.subid) {
-      if (taskArgs.subid != (await onChainAI.subscriptionId())) {
-        const tx = await onChainAI.setSubscriptionId(taskArgs.donid);
-        console.log("OnChainAI setSubscriptionId Request", taskArgs.subid, `${config.explorer}/tx/${tx.hash}`);
+      if (taskArgs.subid != (await contractVerifier.subscriptionId())) {
+        const tx = await contractVerifier.setSubscriptionId(taskArgs.subid);
+        console.log("ContractVerifier setSubscriptionId Request", taskArgs.subid, `${config.explorer}/tx/${tx.hash}`);
         const res = await tx.wait();
-        console.log("OnChainAI setSubscriptionId Result", res?.status || "no status");
+        console.log("ContractVerifier setSubscriptionId Result", res?.status || "no status");
       }
       writeConfig(chainId, "subscriptionId", taskArgs.subid);
       update = true;
     }
     if (taskArgs.router) {
-      if (config.onChainAI) console.error("Cannot update router after deployment, must redeploy");
+      if (config.contractVerifier) console.error("Cannot update router after deployment, must redeploy");
       writeConfig(chainId, "router", taskArgs.router);
       update = true;
     }

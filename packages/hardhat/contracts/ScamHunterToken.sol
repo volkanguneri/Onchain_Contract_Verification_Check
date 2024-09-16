@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import { ERC20Burnable } from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import { IOnChainAI } from "./IOnchainAI.sol";
+import { IOnChainAI } from "./interfaces/IOnchainAI.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
@@ -22,10 +22,7 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
 	/// @notice Emitted when a contract has been verified successfully
 	/// @param contractAddress The address of the contract that was verified
 	/// @param verificationResult The result of the contract verification
-	event ContractVerified(
-		address indexed contractAddress,
-		bytes32 verificationResult
-	);
+	event ContractVerified(address indexed contractAddress,bytes32 verificationResult);
 
 	/// @notice Emitted when a request to verify a contract is sent
 	/// @param contractAddress The address of the contract to be verified
@@ -35,10 +32,7 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
 	/// @notice Emitted when a verification request fails
 	/// @param contractAddress The address of the contract for which the request failed
 	/// @param errorMessage Error message describing why the request failed
-	event VerificationRequestFailed(
-		address contractAddress,
-		string errorMessage
-	);
+	event VerificationRequestFailed(address contractAddress,string errorMessage);
 
 	/// @dev Custom error when the contract balance is insufficient for verification requests
 	error InsufficientContractBalance();
@@ -50,9 +44,7 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
 	 * @notice Constructor to deploy the ScamHunterToken contract
 	 * @param onChainAIAddress The address of the OnChainAI contract for performing contract verification
 	 */
-	constructor(
-		address onChainAIAddress
-	) payable ERC20("Scam Hunter Token", "SHT") Ownable() {
+	constructor(address onChainAIAddress) payable ERC20("Scam Hunter Token", "SHT") Ownable() {
 		_mint(msg.sender, 1_000_000 * (10 ** 18));
 		onChainAI = IOnChainAI(onChainAIAddress);
 	}
@@ -63,10 +55,7 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
 	 * @param amount The number of tokens to approve for spending
 	 * @return A boolean indicating success or failure
 	 */
-	function approve(
-		address spender,
-		uint256 amount
-	) public override returns (bool) {
+	function approve(address spender,uint256 amount) public override returns (bool) {
 		if (!isContractVerified[spender]) {
 			revert ContractNotVerified();
 		}
@@ -97,9 +86,7 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
 	 * @param addr The address to convert
 	 * @return The string representation of the address
 	 */
-	function addressToString(
-		address addr
-	) internal pure returns (string memory) {
+	function addressToString(address addr) internal pure returns (string memory) {
 		bytes32 value = bytes32(uint256(uint160(addr)));
 		bytes memory alphabet = "0123456789abcdef";
 		bytes memory str = new bytes(42);

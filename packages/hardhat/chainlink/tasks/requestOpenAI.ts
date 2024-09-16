@@ -1,11 +1,11 @@
-import { OnChainAI } from "../../typechain-types";
-import { onChainScope } from "./scope";
-import AbiOnChainAI from "../abis/OnChainAI.json";
+import { ContractVerifier } from "../../typechain-types";
+import { contractVerifierScope } from "./scope";
+import AbiContractVerifier from "../abis/ContractVerifier.json";
 import { readConfig } from "../lib/utils";
 import { types } from "hardhat/config";
 
-onChainScope
-  .task("request", "Read last OnChainAI response [and send OnChainAI request]")
+contractVerifierScope
+  .task("request", "Read last ContractVerifier response [and send ContractVerifier request]")
   .addOptionalParam("prompt", "OpenAI prompt request for Chainlink", undefined, types.string)
   .setAction(async (taskArgs, hre) => {
     const chainId = await hre.getChainId();
@@ -13,16 +13,20 @@ onChainScope
     console.log("chainId", chainId);
 
     const [signer] = await hre.ethers.getSigners();
-    const onChainAI = (await hre.ethers.getContractAt(AbiOnChainAI, config.onChainAI, signer)) as unknown as OnChainAI;
+    const contractVerifier = (await hre.ethers.getContractAt(
+      AbiContractVerifier,
+      config.contractVerifier,
+      signer,
+    )) as unknown as ContractVerifier; // Remplacer OnChainAI par ContractVerifier
 
-    console.log(`lastUserPrompt '${await onChainAI.lastUserPrompt()}'`);
-    console.log(`lastResponse   '${await onChainAI.lastResponse()}'`);
-    console.log(`lastError      '${await onChainAI.lastError()}'`);
+    console.log(`lastUserPrompt '${await contractVerifier.lastUserPrompt()}'`);
+    console.log(`lastResponse   '${await contractVerifier.lastResponse()}'`);
+    console.log(`lastError      '${await contractVerifier.lastError()}'`);
 
     if (taskArgs.prompt) {
-      const tx = await onChainAI.sendRequest(taskArgs.prompt, { value: 2_000_000_000_000_000 });
-      console.log("OnChainAI Request", `'${taskArgs.prompt}'`, `${config.explorer}/tx/${tx.hash}`);
+      const tx = await contractVerifier.sendRequest(taskArgs.prompt, { value: 2_000_000_000_000_000 });
+      console.log("ContractVerifier Request", `'${taskArgs.prompt}'`, `${config.explorer}/tx/${tx.hash}`);
       const res = await tx.wait();
-      console.log("OnChainAI Result", res?.status || "no status");
+      console.log("ContractVerifier Result", res?.status || "no status");
     }
   });

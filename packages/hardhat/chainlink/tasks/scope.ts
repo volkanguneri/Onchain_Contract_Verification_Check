@@ -1,5 +1,5 @@
 import { scope } from "hardhat/config";
 
-const onChainScope = scope("ai", "OnChainAI with Chainlink and OpenAI");
+const contractVerifierScope = scope("ai", "ContractVerifier with Chainlink and Etherscan");
 
-export { onChainScope };
+export { contractVerifierScope };

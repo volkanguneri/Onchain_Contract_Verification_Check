@@ -2,7 +2,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { readJavascript, readConfig, writeConfig } from "../chainlink/lib/utils";
 
-const deployContractVerifier: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployBasescanCheck: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
@@ -11,9 +11,9 @@ const deployContractVerifier: DeployFunction = async function (hre: HardhatRunti
 
   const donIdHex = hre.ethers.encodeBytes32String(donId);
   const gasLimit = 300000;
-  const javascript = readJavascript("verifier.js");
+  const javascript = readJavascript("verificationCheck.js");
 
-  const deployResult = await deploy("ContractVerifier", {
+  const deployResult = await deploy("BasescanCheck", {
     from: deployer,
     args: [router, javascript, subscriptionId, gasLimit, donIdHex],
     log: true,
@@ -22,8 +22,8 @@ const deployContractVerifier: DeployFunction = async function (hre: HardhatRunti
 
   // if (deployResult.newlyDeployed)
   {
-    writeConfig(chainId, "contractVerifier", deployResult.address);
-    // add ContractVerifier smartcontract as Consumer on Chainlink Router
+    writeConfig(chainId, "basescanCheck", deployResult.address);
+    // add BasescanCheck smartcontract as Consumer on Chainlink Router
     if (chainId != "31337") {
       const routerAbi = ["function addConsumer(uint64,address) external"];
       const [signer] = await hre.ethers.getSigners();
@@ -37,6 +37,6 @@ const deployContractVerifier: DeployFunction = async function (hre: HardhatRunti
   }
 };
 
-export default deployContractVerifier;
+export default deployBasescanCheck;
 
-deployContractVerifier.tags = ["ContractVerifier"];
+deployBasescanCheck.tags = ["BasescanCheck"];

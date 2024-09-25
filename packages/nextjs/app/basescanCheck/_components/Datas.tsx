@@ -1,7 +1,7 @@
-import { ContractVerifierVariable } from "./ContractVerifierVariable";
+import { BasescanCheckVariable } from "./BasescanCheckVariable";
 import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
 
-export const AIDatas = ({
+export const Datas = ({
   deployedContractData,
   refreshVariables,
   waitingResponse,
@@ -13,7 +13,7 @@ export const AIDatas = ({
   return (
     <>
       <article className="bg-base-100 border-base-300 border shadow-md shadow-secondary rounded-3xl px-6 lg:px-8 mb-2 mt-8 space-y-1 py-4 w-min-272 max-w-xl w-full">
-        <ContractVerifierVariable
+        <BasescanCheckVariable
           deployedContractData={deployedContractData}
           abiFunction={"lastUserPrompt"}
           label={"Last Prompt"}
@@ -21,7 +21,7 @@ export const AIDatas = ({
           loading={false}
         />
 
-        <ContractVerifierVariable
+        <BasescanCheckVariable
           deployedContractData={deployedContractData}
           abiFunction={"lastResponse"}
           label={"Last Response"}

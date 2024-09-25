@@ -1,3 +1,3 @@
 import "./uploadSecrets";
 import "./manageConfig";
-import "./requestOpenAI";
+import "./requestBasescanCheck";

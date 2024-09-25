@@ -1,4 +1,4 @@
-// import { ScamHunterTokenUI } from "./_components/ScamHunterTokenUI";
+import { ScamHunterTokenUI } from "./_components/ScamHunterTokenUI";
 import type { NextPage } from "next";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
@@ -16,10 +16,10 @@ const ScamHunterToken: NextPage = () => {
             <span className="block text-4xl font-bold">ScamHunterToken</span>
           </h1>
           <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
-            <p className="my-2 font-medium">Interact onchain with OpenAI GPT4o-mini</p>
+            <p className="my-2 font-medium">Interacts only with verified contracts</p>
           </div>
         </div>
-        {/* <ScamHunterTokenUI /> */}
+        <ScamHunterTokenUI />
       </div>
     </>
   );

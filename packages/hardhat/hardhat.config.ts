@@ -28,13 +28,20 @@ const deployerPrivateKey = process.env.DEPLOYER_PRIVATE_KEY;
 if (!deployerPrivateKey) {
   throw Error("No Valid Private Key");
 }
-const etherscanApiKey = process.env.ETHERSCAN_API_KEY;
-if (!etherscanApiKey) {
+const basescanAPIKey = process.env.ETHERSCAN_API_KEY;
+if (!basescanAPIKey) {
   throw Error("No Valid Etherscan Key");
 }
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.19",
+    compilers: [
+      {
+        version: "0.8.27",
+      },
+      {
+        version: "0.8.19",
+      },
+    ],
     settings: {
       optimizer: {
         enabled: true,
@@ -135,12 +142,12 @@ const config: HardhatUserConfig = {
   },
   // configuration for harhdat-verify plugin
   etherscan: {
-    apiKey: `${etherscanApiKey}`,
+    apiKey: `${basescanAPIKey}`,
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {
     etherscan: {
-      apiKey: `${etherscanApiKey}`,
+      apiKey: `${basescanAPIKey}`,
     },
   },
   sourcify: {

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.27;
 
-interface IOnChainAI {
+interface IBasescanCheck {
 	// Getter functions ((public variables)
 	function javascript() external view returns (string memory);
 

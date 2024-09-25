@@ -1,0 +1,9 @@
+✖ yarn next:lint --fix --file app/basescanCheck/_components/BasescanCheckUI.tsx --file app/basescanCheck/_components/BasescanCheckVariable.tsx --file app/basescanCheck/_components/Datas.tsx --file app/basescanCheck/_components/PromptInput.tsx --file app/basescanCheck/page.tsx --file app/scamHunterToken/_components/Datas.tsx --file app/scamHunterToken/_components/ScamHunterTokenUI.tsx --file app/scamHunterToken/page.tsx --file components/Header.tsx --file contracts/deployedContracts.ts:
+
+./app/scamHunterToken/_components/Datas.tsx
+1:10  Error: 'ScamHunterTokenVariable' is defined but never used.  @typescript-eslint/no-unused-vars
+5:34  Error: 'GenericContract' is defined but never used.  @typescript-eslint/no-unused-vars
+5:51  Error: 'InheritedFunctions' is defined but never used.  @typescript-eslint/no-unused-vars
+9:3  Error: 'refreshVariables' is defined but never used.  @typescript-eslint/no-unused-vars
+10:3  Error: 'waitingResponse' is defined but never used.  @typescript-eslint/no-unused-vars
+16:26  Error: Unexpected empty arrow function.  @typescript-eslint/no-empty-function

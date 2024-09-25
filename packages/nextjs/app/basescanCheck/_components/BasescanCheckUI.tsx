@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AIDatas } from "./AIDatas";
+import { Datas } from "./Datas";
 import { PromptInput } from "./PromptInput";
 import { TransactionReceipt, formatEther } from "viem";
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
@@ -13,8 +13,8 @@ import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
-export const OnChainAIUI = ({}) => {
-  const contractName = "OnChainAI";
+export const BasescanCheckUI = ({}) => {
+  const contractName = "BasescanCheck";
   const txValue = "2000000000000000";
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(
@@ -116,7 +116,7 @@ export const OnChainAIUI = ({}) => {
   return (
     <>
       <div className="w-full px-8 flex items-center justify-center">
-        <AIDatas
+        <Datas
           deployedContractData={deployedContractData}
           refreshVariables={refreshVariables}
           waitingResponse={waitingResponse}
@@ -126,9 +126,9 @@ export const OnChainAIUI = ({}) => {
         <div className="w-full flex justify-center items-center">
           <article className="bg-base-100 border-base-300 border shadow-md shadow-secondary rounded-3xl px-6 lg:px-8 mb-6 py-4 w-min-272 max-w-xl w-full">
             <header className="mb-5 text-center">
-              <p className="text-primary font-medium my-0 break-words">Enter your Prompt</p>
+              <p className="text-primary font-medium mt-0 mb-1 break-words">Enter the address</p>
               <p className="text-xs font-light my-0 mb-2 break-words">
-                Keep it simple to achieve ChainLink consensus (transaction cost: {formatEther(BigInt(txValue))} ETH)
+                (Transaction cost: {formatEther(BigInt(txValue))} ETH)
               </p>
             </header>
             <PromptInput

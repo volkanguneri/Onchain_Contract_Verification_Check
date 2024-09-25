@@ -5,7 +5,7 @@ import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
 
-export const OnChainAIVariable = ({
+export const BasescanCheckVariable = ({
   deployedContractData,
   abiFunction,
   label,

@@ -7,13 +7,13 @@ const deployScamHunterToken: DeployFunction = async function (hre: HardhatRuntim
 
   try {
     // Fetch the deployed ContractVerifier contract
-    const contractVerifierDeployment = await get("ContractVerifier");
-    const contractVerifierAddress = contractVerifierDeployment.address;
+    const basescanCheckDeployment = await get("BasescanCheck");
+    const basescanCheckAddress = basescanCheckDeployment.address;
 
-    // Deploy the ScamHunterToken contract with the ContractVerifier address as a constructor argument
+    // Deploy the ScamHunterToken contract with the BasescanCheck address as a constructor argument
     await deploy("ScamHunterToken", {
       from: deployer,
-      args: [contractVerifierAddress],
+      args: [basescanCheckAddress],
       log: true,
       // autoMine: true, // Uncomment if needed
     });

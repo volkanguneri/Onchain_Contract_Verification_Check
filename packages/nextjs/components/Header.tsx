@@ -26,13 +26,8 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <BugAntIcon className="h-4 w-4" />,
   },
   {
-    label: "ContractVerifier",
-    href: "/contractVerifier",
-    icon: <LinkIcon className="h-4 w-4" />,
-  },
-  {
-    label: "OnChainAI",
-    href: "/onchain-ai",
+    label: "BasescanCheck",
+    href: "/basescanCheck",
     icon: <LinkIcon className="h-4 w-4" />,
   },
   {

@@ -5,14 +5,14 @@ decodeConfig();
 import { ethers } from "ethers-v5";
 import { types } from "hardhat/config";
 import { SecretsManager } from "@chainlink/functions-toolkit";
-import { contractVerifierScope } from "./scope";
-import { ContractVerifier } from "../../typechain-types"; // Updated type
-import AbiContractVerifier from "../abis/ContractVerifier.json"; // Updated ABI
+import { basescanCheckScope } from "./scope";
+import { BasescanCheck } from "../../typechain-types"; // Updated type
+import AbiBasescanCheck from "../abis/BasescanCheck.json"; // Updated ABI
 import { readConfig } from "../lib/utils";
 
-// Task to upload ContractVerifier secrets to Chainlink
-contractVerifierScope
-  .task("secrets", "Upload ContractVerifier secrets to Chainlink")
+// Task to upload BasescanCheck secrets to Chainlink
+basescanCheckScope
+  .task("secrets", "Upload BasescanCheck secrets to Chainlink")
   .addOptionalParam("expiration", "Expiration time in minutes of uploaded secrets", 60, types.int)
   .setAction(async (taskArgs, hre) => {
     const chainId = await hre.getChainId();
@@ -25,7 +25,7 @@ contractVerifierScope
 
     const slotIdNumber = 0;
     const expiration = taskArgs.expiration;
-    const secrets = { etherscanAPIKey: process.env.ETHERSCAN_API_KEY || "" };
+    const secrets = { basescanAPIKey: process.env.BASESCAN_API_KEY || "" };
 
     const rpcUrl = `${rpc}/${process.env.ALCHEMY_API_KEY}`;
     if (!rpcUrl) throw new Error(`rpcUrl not provided - check your environment variables`);
@@ -66,14 +66,14 @@ contractVerifierScope
     // Update onchain `donHostedSecretsVersion`
     if (uploadResult.success) {
       const [signer] = await hre.ethers.getSigners();
-      const contractVerifier = (await hre.ethers.getContractAt(
-        AbiContractVerifier,
-        readConfig(chainId).contractVerifier, // Updated contract address
+      const basescanCheck = (await hre.ethers.getContractAt(
+        AbiBasescanCheck,
+        readConfig(chainId).basescanCheck, // Updated contract address
         signer,
-      )) as unknown as ContractVerifier;
+      )) as unknown as BasescanCheck;
 
       // Update onchain `donHostedSecretsVersion`
-      const tx = await contractVerifier.setDonHostedSecretsVersion(uploadResult.version);
+      const tx = await basescanCheck.setDonHostedSecretsVersion(uploadResult.version);
       console.log("setDonHostedSecretsVersion Request", uploadResult.version, `${explorer}/tx/${tx.hash}`);
       const res = await tx.wait();
       console.log("setDonHostedSecretsVersion Result", res?.status || "no status");

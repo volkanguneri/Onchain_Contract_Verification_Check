@@ -24,9 +24,7 @@ export const Datas = ({
       return isQueryableWithParams;
     })
     .map(fn => {
-      return {
-        fn,
-      };
+      return { fn };
     })
     .filter(part => part.fn.name === "isContractChecked");
 

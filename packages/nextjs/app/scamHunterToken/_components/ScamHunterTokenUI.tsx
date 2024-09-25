@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Datas } from "./Datas";
 import { Events } from "./Events";
 import { Address, Balance } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
+import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth/useScaffoldEventHistory";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
@@ -18,13 +19,12 @@ export const ScamHunterTokenUI = ({}) => {
   const { targetNetwork } = useTargetNetwork();
   const networkColor = useNetworkColor();
 
-  //////////////////////////////////////////////////////////////////////////////
+  // State variables
   const [refreshVariables, setRefreshVariables] = useState(0);
   const [waitingResponse, setWaitingResponse] = useState(false);
-
-  /////////////////////////////////////////////////////////////////////////////////
   const [eventLogs, setEventLogs] = useState<any[]>([]);
 
+  // Handling logs from events
   const onLogs = (logs: any) => {
     setWaitingResponse(false);
     setRefreshVariables(refreshVariables + 1);
@@ -34,8 +34,22 @@ export const ScamHunterTokenUI = ({}) => {
   useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestSent", onLogs });
   useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestFailed", onLogs });
 
-  ///////////////////////////////////////////////////////////////////////////////////
+  // Fetch event history
+  const { data: eventHistory } = useScaffoldEventHistory({
+    contractName,
+    eventName: "CheckRequestSent",
+    fromBlock: 0n,
+    watch: true,
+    enabled: !!deployedContractData,
+  });
 
+  useEffect(() => {
+    if (eventHistory) {
+      setEventLogs(prevLogs => [...prevLogs, ...eventHistory.flat()]);
+    }
+  }, [eventHistory]);
+
+  // Loading state
   if (deployedContractLoading) {
     return (
       <div className="mt-14">
@@ -44,6 +58,7 @@ export const ScamHunterTokenUI = ({}) => {
     );
   }
 
+  // No contract found state
   if (!deployedContractData) {
     return (
       <p className="text-3xl mt-14">
@@ -54,24 +69,6 @@ export const ScamHunterTokenUI = ({}) => {
 
   return (
     <>
-      {/* Functions */}
-      <div className="lg:flex">
-        <div className="w-full px-8 flex flex-grow items-center justify-center">
-          <Datas
-            deployedContractData={deployedContractData}
-            refreshVariables={refreshVariables}
-            waitingResponse={waitingResponse}
-          />
-        </div>
-
-        {/* Events */}
-        <div className="mx-auto flex flex-end">
-          <ul>
-            <Events events={eventLogs} />
-          </ul>
-        </div>
-      </div>
-
       {/* Contract Information */}
       <div className="min-[900px]:fixed top-24 left-8 bg-base-100 border-base-300 border shadow-md shadow-secondary rounded-3xl px-6 lg:px-8 space-y-1 py-4 max-w-xl mx-auto">
         <div className="flex">
@@ -90,6 +87,24 @@ export const ScamHunterTokenUI = ({}) => {
             <span style={{ color: networkColor }}>{targetNetwork.name}</span>
           </p>
         )}
+      </div>
+
+      <div className="lg:grid lg:grid-cols-8">
+        {/* Functions */}
+        <div className="lg:col-start-2 lg:col-span-4 flex items-center justify-end">
+          <Datas
+            deployedContractData={deployedContractData}
+            refreshVariables={refreshVariables}
+            waitingResponse={waitingResponse}
+          />
+        </div>
+
+        {/* Events */}
+        <div className="lg:col-start-6 lg:col-span-4 flex items-start justify-start">
+          <ul>
+            <Events events={eventLogs} />
+          </ul>
+        </div>
       </div>
     </>
   );

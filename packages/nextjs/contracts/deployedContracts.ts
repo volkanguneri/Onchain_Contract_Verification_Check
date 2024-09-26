@@ -471,7 +471,7 @@ const deployedContracts = {
       },
     },
     ScamHunterToken: {
-      address: "0x1A8223a36E8164A1B04711C499079292AdAcB88D",
+      address: "0xAc8979E0696B87d73bE05e797F2795fcB2EfE830",
       abi: [
         {
           inputs: [
@@ -481,17 +481,17 @@ const deployedContracts = {
               type: "address",
             },
           ],
-          stateMutability: "payable",
+          stateMutability: "nonpayable",
           type: "constructor",
         },
         {
           inputs: [],
-          name: "ContractNotChecked",
+          name: "InsufficientPayment",
           type: "error",
         },
         {
           inputs: [],
-          name: "InsufficientContractBalance",
+          name: "VerificationNotChecked",
           type: "error",
         },
         {
@@ -527,12 +527,6 @@ const deployedContracts = {
               internalType: "address",
               name: "contractAddress",
               type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "errorMessage",
-              type: "string",
             },
           ],
           name: "CheckRequestFailed",

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Datas } from "./Datas";
-import { Events } from "./Events";
+import { EventList as ImportedEventList } from "./EventList";
+import { CustomEventList } from "./EventList";
 import { Address, Balance } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
@@ -31,11 +32,12 @@ export const ScamHunterTokenUI = ({}) => {
     setEventLogs(prevLogs => [...prevLogs, ...logs]);
   };
 
+  // Watching for contract events
   useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestSent", onLogs });
   useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestFailed", onLogs });
 
-  // Fetch event history
-  const { data: eventHistory } = useScaffoldEventHistory({
+  // Fetch event history for both CheckRequestSent and CheckRequestFailed
+  const { data: sentEventHistory } = useScaffoldEventHistory({
     contractName,
     eventName: "CheckRequestSent",
     fromBlock: 0n,
@@ -43,11 +45,25 @@ export const ScamHunterTokenUI = ({}) => {
     enabled: !!deployedContractData,
   });
 
+  const { data: failedEventHistory } = useScaffoldEventHistory({
+    contractName,
+    eventName: "CheckRequestFailed",
+    fromBlock: 0n,
+    watch: true,
+    enabled: !!deployedContractData,
+  });
+
   useEffect(() => {
-    if (eventHistory) {
-      setEventLogs(prevLogs => [...prevLogs, ...eventHistory.flat()]);
+    if (sentEventHistory) {
+      setEventLogs(prevLogs => [...prevLogs, ...sentEventHistory.flat()]);
     }
-  }, [eventHistory]);
+  }, [sentEventHistory]);
+
+  useEffect(() => {
+    if (failedEventHistory) {
+      setEventLogs(prevLogs => [...prevLogs, ...failedEventHistory.flat()]);
+    }
+  }, [failedEventHistory]);
 
   // Loading state
   if (deployedContractLoading) {
@@ -102,7 +118,8 @@ export const ScamHunterTokenUI = ({}) => {
         {/* Events */}
         <div className="lg:col-start-6 lg:col-span-4 flex items-start justify-start">
           <ul>
-            <Events events={eventLogs} />
+            <ImportedEventList eventList={eventLogs} />
+            <CustomEventList eventList={eventLogs} />
           </ul>
         </div>
       </div>

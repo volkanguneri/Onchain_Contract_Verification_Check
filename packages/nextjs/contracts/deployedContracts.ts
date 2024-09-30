@@ -471,7 +471,7 @@ const deployedContracts = {
       },
     },
     ScamHunterToken: {
-      address: "0xAc8979E0696B87d73bE05e797F2795fcB2EfE830",
+      address: "0xECCB180404400E724458b145174fB168b3Fab1BE",
       abi: [
         {
           inputs: [
@@ -517,19 +517,6 @@ const deployedContracts = {
             },
           ],
           name: "Approval",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "address",
-              name: "contractAddress",
-              type: "address",
-            },
-          ],
-          name: "CheckRequestFailed",
           type: "event",
         },
         {

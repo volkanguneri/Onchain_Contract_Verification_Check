@@ -26,8 +26,6 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
     /// @notice Emitted when a request to check a contract verification is sent
     /// @param contractAddress The address of the contract to be checked
     event CheckRequestSent(address contractAddress);
-    event CheckRequestFailed(address contractAddress);
-
 
     /////////////////////////////////// CUSTOM ERRORS /////////////////////////////////////////////
 
@@ -90,15 +88,11 @@ contract ScamHunterToken is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
      */
     function _handleCheckRequest(address _contractAddress, string memory _contractAddressString) internal {
         // Send the request with 0.002 ether
-        try basescanCheck.sendRequest{ value: 0.002 ether }(_contractAddressString) {
+        basescanCheck.sendRequest{ value: 0.002 ether }(_contractAddressString);
 			// Mark the contract address as checked
         isContractChecked[_contractAddress] = true;
         // Emit an event to signal the check request
-        emit CheckRequestSent(_contractAddress); 
-		} catch {
-			emit CheckRequestFailed(_contractAddress);
-		}
-              
+        emit CheckRequestSent(_contractAddress);             
     }
 
     /**

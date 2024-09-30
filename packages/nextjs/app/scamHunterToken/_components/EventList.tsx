@@ -4,22 +4,20 @@ import { Address } from "~~/components/scaffold-eth";
 
 // Typage de l'événement
 export type EventArgs = {
-  address: AddressType;
-  eventName: string;
-  reason?: string;
+  contractAddress: AddressType;
 };
 
 export type EventType = {
-  // Ensure this is exported
-  event: "CheckRequestSent" | "CheckRequestFailed";
   args: EventArgs;
+  eventName: string;
 };
 
-export type EventListProps = {
-  eventList: EventType[]; // Use the exported type
+// Typage des propriétés du composant
+export type EventProps = {
+  eventList: EventType[];
 };
 
-export const EventList = ({ eventList }: EventListProps) => {
+export const Events = ({ eventList }: EventProps) => {
   return (
     <div className="mx-10">
       <table className="mt-4 p-2 bg-base-100 table table-zebra shadow-lg w-full overflow-hidden">
@@ -30,11 +28,11 @@ export const EventList = ({ eventList }: EventListProps) => {
           </tr>
         </thead>
         <tbody>
-          {eventList.map(({ args }, i) => (
+          {eventList.map(({ eventName, args }, i) => (
             <tr key={i}>
-              <td className="py-3.5">{args.eventName}</td>
+              <td className="py-3.5">{eventName}</td>
               <td className="py-3.5">
-                <Address address={args.address} />
+                <Address address={args.contractAddress} />
               </td>
             </tr>
           ))}
@@ -43,29 +41,3 @@ export const EventList = ({ eventList }: EventListProps) => {
     </div>
   );
 };
-
-// EventList Component
-export const CustomEventList = ({ eventList }: EventListProps) => {
-  return (
-    <>
-      {eventList.map((event: EventType, index: number) => (
-        <li key={index}>
-          {event.args.eventName === "CheckRequestSent" ? (
-            <span>Check Request Sent: {event.args.address}</span>
-          ) : event.args.eventName === "CheckRequestFailed" ? (
-            <span style={{ color: "red" }}>Check Request Failed: {event.args.eventName}</span>
-          ) : null}
-        </li>
-      ))}
-    </>
-  );
-};
-
-// {eventList.map(({ args }, i) => (
-//   <tr key={i}>
-//     <td className="py-3.5">{args.eventName}</td>
-//     <td className="py-3.5">
-//       <Address address={args.address} />
-//     </td>
-//   </tr>
-// ))}

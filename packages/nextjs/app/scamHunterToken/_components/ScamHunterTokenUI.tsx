@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Datas } from "./Datas";
-import { EventList as ImportedEventList } from "./EventList";
-import { CustomEventList } from "./EventList";
+import { Events } from "./EventList";
 import { Address, Balance } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
@@ -25,19 +24,25 @@ export const ScamHunterTokenUI = ({}) => {
   const [waitingResponse, setWaitingResponse] = useState(false);
   const [eventLogs, setEventLogs] = useState<any[]>([]);
 
-  // Handling logs from events
+  // // Handling logs from events (real-time)
   const onLogs = (logs: any) => {
+    console.log(logs);
+    //   console.log("onLogs TRIGGERED")
     setWaitingResponse(false);
     setRefreshVariables(refreshVariables + 1);
-    setEventLogs(prevLogs => [...prevLogs, ...logs]);
+
+    //   setEventLogs(prevLogs => {
+    //     const newLogs = [...prevLogs, ...logs]; // Append new logs
+    //     console.log("🚀 onLogs TRIGGEREDAND EXECUTED")
+    //     setEventLogs(newLogs);
+    //   });
   };
 
-  // Watching for contract events
+  // Listen to real-time events
   useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestSent", onLogs });
-  useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestFailed", onLogs });
 
-  // Fetch event history for both CheckRequestSent and CheckRequestFailed
-  const { data: sentEventHistory } = useScaffoldEventHistory({
+  // Fetch event history (on page load)
+  const { data: eventHistory } = useScaffoldEventHistory({
     contractName,
     eventName: "CheckRequestSent",
     fromBlock: 0n,
@@ -45,25 +50,13 @@ export const ScamHunterTokenUI = ({}) => {
     enabled: !!deployedContractData,
   });
 
-  const { data: failedEventHistory } = useScaffoldEventHistory({
-    contractName,
-    eventName: "CheckRequestFailed",
-    fromBlock: 0n,
-    watch: true,
-    enabled: !!deployedContractData,
-  });
-
+  // Load only the last 10 events when the page loads
   useEffect(() => {
-    if (sentEventHistory) {
-      setEventLogs(prevLogs => [...prevLogs, ...sentEventHistory.flat()]);
+    if (eventHistory) {
+      const latestEvents = eventHistory.slice(0, 12); // Get the last 12 events
+      setEventLogs(latestEvents);
     }
-  }, [sentEventHistory]);
-
-  useEffect(() => {
-    if (failedEventHistory) {
-      setEventLogs(prevLogs => [...prevLogs, ...failedEventHistory.flat()]);
-    }
-  }, [failedEventHistory]);
+  }, [eventHistory]);
 
   // Loading state
   if (deployedContractLoading) {
@@ -118,8 +111,7 @@ export const ScamHunterTokenUI = ({}) => {
         {/* Events */}
         <div className="lg:col-start-6 lg:col-span-4 flex items-start justify-start">
           <ul>
-            <ImportedEventList eventList={eventLogs} />
-            <CustomEventList eventList={eventLogs} />
+            <Events eventList={eventLogs} />
           </ul>
         </div>
       </div>

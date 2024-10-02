@@ -1,87 +1,204 @@
-# 🏗 Scaffold-ETH 2
+# Scam Hunter Token 🤖
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+## Onchain `Basescan Verification Check` via `Chainlink Functions`
+Scam Hunter Token's purpose is to provide a fully decentralized way to make an onchain check bu using Chainlink Functions (Beta) if a contract is verified on Basescan before any interaction with it. It uses Basescan Sepolia network. 
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+Scam Hunter Token uses [OnChainAi-extension] and [Fleek extension] by [Kredeum] on Scaffold-Eth-2
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+Kredeum extensions on Scaffold-Eth-2
+*https://github.com/Kredeum/onchain-ai-extension.
+https://github.com/zapaz/fleek-extension*
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+Scaffold-Eth-2 
+*https://github.com/scaffold-eth/scaffold-eth-2*
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+Chainlink Functions (Beta)
+*https://docs.chain.link/chainlink-functions/tutorials/api-query-parameters#functionsconsumerexamplesol*
 
-## Requirements
 
-Before you begin, you need to install the following tools:
+## Demo 👀
 
-- [Node (>= v18.17)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+A running demo of `Scam Hunter Token`  is available on IPFS here:
 
-## Quickstart
+- [https://many-jelly-incalculable.on-fleek.app/onchain-ai/]
+(https://many-jelly-incalculable.on-fleek.app/onchain-ai/)
 
-To get started with Scaffold-ETH 2, follow the steps below:
+<!-- ![OnChainAI](OnChainAI.png) -->
 
-1. Install dependencies if it was skipped in CLI:
 
-```
-cd my-dapp-example
-yarn install
-```
 
-2. Run a local network in the first terminal:
+## Description 📗
 
-```
-yarn chain
-```
+- `Scam Hunter Token` is a Scaffold-eth-2 granted project, allowing you to interact only with verified contracts on Basescan using `Onchain Basescan Verification Check`. 
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/hardhat/hardhat.config.ts`.
+- `Scam Hunter Token` is an on-chain solution for identifying non-verified contracts, which often contain malicious code, as many scam platforms are not verified.
 
-3. On a second terminal, deploy the test contract:
+- `Scam Hunter Token` uses [`Basescan API`](https://docs.basescan.org/) with [`Chainlink Functions`](https://functions.chain.link/).
 
-```
-yarn deploy
-```
+Each `Basescan Verification Check` request launched by `Scam Hunter Token` is sent by multiple `Chainlink` servers that have to reach consensus to return a unique answer. 
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
+`Chainlink` answer can be retrieved only after a few blocks, and may take more than one minute, depending on the network.
 
-4. On a third terminal, start your NextJS app:
+- `Chainlink` requires some `LINK` tokens. 
+Default model will be a fixed price of `0.0002 eth` per request.
 
-```
-yarn start
+BUT this will be changed in the future to a more dynamic pricing model.
+
+- You can use `Basescan Verification Check` as it is, with the contracts already deployed, or you can deploy your own, where you will be able to set your own configuration, and decide on the price of check requests.
+
+- `Basescan Verification Check` is available with a `Hardhat` setup with 3 specific AI tasks to help you start with the `` protocol.
+
+## Install 🛠️
+
+Install via this command:
+```sh
+$ npx create-eth@latest -e kredeum/onchain-ai-extension
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Then run the following commands to initialize the new repo,
+```sh
+$ cd <your new repo>
+$ ./init.sh
+```
 
-Run smart contract test with `yarn hardhat:test`
+Finally the classic Scaffold-eth-2 commands in 3 different terminals:
+```sh
+$ yarn chain
+```
+```sh
+$ yarn deploy
+```
+```sh
+$ yarn start
+```
 
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
+In all these commands use `hardhat` option `--network <NETWORK>` to specify the network you want to use.
+
+Note that `Basescan Verification Check` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
+
+## Usage 💡
+
+You can send your prompt to `BasescanCheck.sol` in different ways:
+1. using `debug` page of `Scaffold-eth-2` (`out of the box`)
+2. using `BasescanCheck UI` via the menu link in `Scaffold-eth-2`
+3. using `ScamHunterToken UI` via the menu link in `Scaffold-eth-2` 
+4. using `hardhat ai request` task
+5. via your smartcontracts interacting with `BasescanCheck.sol` as does `ScamHunterToken.sol`
 
 
+## Hardhat tasks 🚀
 
-#####################################################################
-##### YOU MUST RUN ONCE './init.sh' before running 'yarn chain' #####
-#####################################################################
+You can run hardhat AI task with `yarn hardhat --network <NETWORK> ai <TASK>`
+
+3 tasks available, 1 for the users: `request`, 2 for the `BasescanCheck` admin : `secrets`, `config`
+
+```txt
+AVAILABLE TASKS:
+
+  config 	Display [and update] BasescanCheck config
+  request	Read last BasescanCheck response [and send BasescanCheck request]
+  secrets	Upload BasescanCheck secrets to Chainlink
+
+ai: BasescanCheck with Chainlink and Basescan
+```
+
+### `request` task ❓
+**Main task**, to be used to send your prompt
+
+Ex: `yarn hardhat --network baseSepolia ai request --prompt "13 time 5 equal ?"`
+
+```txt
+Usage: hardhat [GLOBAL OPTIONS] ai request [--prompt <STRING>]
+
+OPTIONS:
+
+  --prompt	BasescanCheck prompt request for Chainlink
+
+request: Read last BasescanCheck response [and send BasescanCheck request]
+```
 
 
+### `secrets` task 🔒
+Admin task, to be used to upload your secrets to Chainlink
 
-## Documentation
+Ex: `yarn hardhat --network baseSepolia ai secrets --expiration 10`
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+```txt
+Usage: hardhat [GLOBAL OPTIONS] ai secrets [--expiration <INT>]
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+OPTIONS:
 
-## Contributing to Scaffold-ETH 2
+  --expiration	Expiration time in minutes of uploaded secrets  (default: 60)
 
-We welcome contributions to Scaffold-ETH 2!
+secrets: Upload BasescanCheck secrets to Chainlink
+```
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+### `config` task ⚙️
+Admin task, to manage BasescanCheck configuration
+
+Ex: `yarn hardhat --network baseSepolia ai config --price 0.0002`
+
+```txt
+Usage: hardhat [GLOBAL OPTIONS] ai config [--chainname <STRING>] [--donid <INT>] [--explorer <STRING>] [--router <STRING>] [--rpc <STRING>] [--subid <INT>]
+
+OPTIONS:
+
+  --chainname	Chain name
+  --donid    	Chainlink DON Id
+  --explorer 	Chain explorer url
+  --router   	Chainlink routeur address
+  --rpc      	Base Rpc url
+  --subid    	Chainlink Subscription Id
+
+config: Display [and update] OnChainAI config
+```
+
+Any updated value, will be written to the config file, and store onchain for `donid`and `subid`
+
+Router address must be set **before** deployment of a new version of `OnChainAI` contract.
+
+Config file can be found at [packages/hardhat/chainlink/config.json](chainlink/config.json)
+
+### Shortcut ⏩
+You can define a shortcut in your package.json like that :
+```json
+"scripts": {
+  "ai": "hardhat --network baseSepolia ai"
+}
+```
+then call it with `yarn ai <TASK> <OPTIONS>`
+
+## OpenAI 🧠
+
+A specific `system prompt` is used for each OpenAI request, you can view it inside the javascript code run by `Chainlink DON` : [packages/hardhat/chainlink/source/verificationCheck.js](chainlink/source/verificationCheck.js)
+
+
+## Security 🛡️
+In order to never store your secrets and private keys in plain text on your hard disk (["hi @PatrickAlphaC"](https://www.youtube.com/watch?v=CIbhqRJ4B8I)), this extension use `Chainlink env-enc` module to encrypt your secrets before storing them.
+
+In order to setup `env-enc`, in hardhat directory first define a password with `yarn env-enc set-pw` then input your secrets with `yarn env-enc set`
+
+If you want to keep original unsecure `dotenv` stuff just comment 2 `env-enc` lines, and uncomment the 2 `dotenv` lines at the begining of `hardhat.config.ts`
+
+Same ENV values are needed for both `dotenv` and `env-enc`:
+- `DEPLOYER_PRIVATE_KEY` : private key of the deployer
+- `ALCHEMY_API_KEY` : alchemy api key
+- `BASESCAN_API_KEY` : basescan API key
+
+- `BASESCAN_API_KEY` : will be uploaded in a secure way to `Chainlink DON`  (don't use centralized S3 solutions also proposed by `Chainlink`)
+
+## Limitations 🚧
+
+- `Chainlink Functions` is currently in `beta` so as `BasescanCheck` and `ScamHunterToken` is.
+
+- `BasescanCheck` prompt must be and only can be a blockchain adress of a smart contract.
+
+- `BasescanCheck` answer must very short, in order for `Chainlink Functions` to be able to reach a consensus on an answer.
+
+
+## Roadmap  ➡️
+- deploy on Mainnet: requires some tuning on requested price, using some `Chainlink Oracle Price feed`
+- implement other networks: `optimismSepolia`, `arbitrumSepolia` etc.
+- deploy `BasescanCheck` on all networks supported by `Chainlink Functions` (curently as of August 2024 : Ethereum, Arbitrum, Base, Optimism, Polygon, Avalanche)
+- deploy with same address on all networks
+- setup an foundry extension too

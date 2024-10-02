@@ -1,3 +1,9 @@
+// Created from open-source template "Kredeum / onchain-ai-extension"
+// https://github.com/Kredeum/onchain-ai-extension
+
+// The original Chainlink code is FunctionsConsumerExample.sol 
+// https://docs.chain.link/chainlink-functions/tutorials/api-query-parameters#functionsconsumerexamplesol
+
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.27;
 

@@ -3,18 +3,11 @@ import { ReadOnlyFunctionForm } from "~~/app/debug/_components/contract/ReadOnly
 import { WriteOnlyFunctionForm } from "~~/app/debug/_components/contract/WriteOnlyFunctionForm";
 import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
 
-export const Datas = ({
-  deployedContractData,
-}: // refreshVariables,
-// waitingResponse,
-{
-  deployedContractData: Contract<ContractName>;
-  refreshVariables: number;
-  waitingResponse: boolean;
-}) => {
+export const Datas = ({ deployedContractData }: { deployedContractData: Contract<ContractName> }) => {
   const onChange = () => {
     console.log("onChange");
   };
+
   const isContractCheckedRead = (
     ((deployedContractData.abi || []) as Abi).filter(part => part.type === "function") as AbiFunction[]
   )
@@ -33,6 +26,8 @@ export const Datas = ({
   ) as AbiFunction[];
   const functionApprove = functionsToDisplay.filter(part => part.name === "approve") as AbiFunction[];
   const functionChecker = functionsToDisplay.filter(part => part.name === "checkVerification") as AbiFunction[];
+
+  console.log("Datas.tsx executed");
 
   return (
     <>

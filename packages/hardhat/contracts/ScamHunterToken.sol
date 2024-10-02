@@ -9,6 +9,7 @@ import { IBasescanCheck } from "./interfaces/IBasescanCheck.sol";
 
 /**
  * @title ScamHunterToken
+ * @author guneriv.eth
  * @dev ERC20 token with burnable, ownable, and reentrancy guard features.
  * Integrated with BasescanCheck for contract verification check.
  */

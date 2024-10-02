@@ -20,43 +20,30 @@ export const ScamHunterTokenUI = ({}) => {
   const networkColor = useNetworkColor();
 
   // State variables
-  const [refreshVariables, setRefreshVariables] = useState(0);
-  const [waitingResponse, setWaitingResponse] = useState(false);
   const [eventLogs, setEventLogs] = useState<any[]>([]);
 
-  // // Handling logs from events (real-time)
+  // Handling logs from events (real-time)
   const onLogs = (logs: any) => {
-    console.log(logs);
-    //   console.log("onLogs TRIGGERED")
-    setWaitingResponse(false);
-    setRefreshVariables(refreshVariables + 1);
-
-    //   setEventLogs(prevLogs => {
-    //     const newLogs = [...prevLogs, ...logs]; // Append new logs
-    //     console.log("🚀 onLogs TRIGGEREDAND EXECUTED")
-    //     setEventLogs(newLogs);
-    //   });
+    setEventLogs(prevLogs => [...prevLogs, ...logs]);
   };
 
   // Listen to real-time events
   useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestSent", onLogs });
 
   // Fetch event history (on page load)
-  const { data: eventHistory } = useScaffoldEventHistory({
+  const { data: eventHistory, isLoading: eventLoading } = useScaffoldEventHistory({
     contractName,
     eventName: "CheckRequestSent",
     fromBlock: 0n,
     watch: true,
-    enabled: !!deployedContractData,
   });
 
-  // Load only the last 10 events when the page loads
   useEffect(() => {
-    if (eventHistory) {
-      const latestEvents = eventHistory.slice(0, 12); // Get the last 12 events
-      setEventLogs(latestEvents);
+    if (!eventLoading && Boolean(eventHistory?.length) && (eventHistory?.length as number) > eventLogs.length) {
+      // Ensure eventHistory is an array or fallback to []
+      setEventLogs([...(eventHistory || [])].slice(0, 12));
     }
-  }, [eventHistory]);
+  }, [eventHistory, eventLoading, eventLogs.length]);
 
   // Loading state
   if (deployedContractLoading) {
@@ -101,11 +88,7 @@ export const ScamHunterTokenUI = ({}) => {
       <div className="lg:grid lg:grid-cols-8">
         {/* Functions */}
         <div className="lg:col-start-2 lg:col-span-4 flex items-center justify-end">
-          <Datas
-            deployedContractData={deployedContractData}
-            refreshVariables={refreshVariables}
-            waitingResponse={waitingResponse}
-          />
+          <Datas deployedContractData={deployedContractData} />
         </div>
 
         {/* Events */}

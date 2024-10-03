@@ -1,9 +1,13 @@
+
 # Scam Hunter Token 🤖
 
-## Onchain `Basescan Verification Check` via `Chainlink Functions`
-Scam Hunter Token's purpose is to provide a fully decentralized way to make an onchain check bu using Chainlink Functions (Beta) if a contract is verified on Basescan before any interaction with it. It uses Basescan Sepolia network. 
+## Onchain `Basescan Verification Check` for blockchain addresses via `Chainlink Functions`
 
-Scam Hunter Token uses [OnChainAi-extension] and [Fleek extension] by [Kredeum] on Scaffold-Eth-2
+The Scam Hunter Token's primary goal is to provide a fully decentralized mechanism to ensure that before interacting with any contract, it checks if the contract is verified on Basescan. This check is conducted using an Onchain Basescan Verification Check.
+
+The OnChain Basescan Verification Check involves verifying blockchain addresses using Chainlink Functions. Chainlink Functions can be used to request data from off-chain sources like Basescan (the block explorer for Base), which can then return verification status for a particular blockchain address. This check ensures that interactions with your smart contract are only allowed if the blockchain address meets specific verification criteria, like being verified on Basescan.
+
+Scam Hunter Token uses OnChainAi and Fleek extensions by Kredeum on Scaffold-Eth-2
 
 Kredeum extensions on Scaffold-Eth-2
 *https://github.com/Kredeum/onchain-ai-extension.

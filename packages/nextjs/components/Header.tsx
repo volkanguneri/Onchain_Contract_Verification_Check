@@ -30,11 +30,6 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/basescanCheck",
     icon: <LinkIcon className="h-4 w-4" />,
   },
-  {
-    label: "ScamHunterToken",
-    href: "/scamHunterToken",
-    icon: <LinkIcon className="h-4 w-4" />,
-  },
 ];
 
 export const HeaderMenuLinks = () => {

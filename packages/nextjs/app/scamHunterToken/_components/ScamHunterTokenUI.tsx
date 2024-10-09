@@ -11,6 +11,8 @@ import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
 export const ScamHunterTokenUI = ({}) => {
+  console.log("🚀 ScamHunterTokenUI started");
+
   const contractName = "ScamHunterToken";
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(
@@ -22,16 +24,12 @@ export const ScamHunterTokenUI = ({}) => {
   // State variables
   const [eventLogs, setEventLogs] = useState<any[]>([]);
 
-  // Handling logs from events (real-time)
-  const onLogs = (logs: any) => {
-    setEventLogs(prevLogs => [...prevLogs, ...logs]);
-  };
-
-  // Listen to real-time events
-  useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestSent", onLogs });
-
   // Fetch event history (on page load)
-  const { data: eventHistory, isLoading: eventLoading } = useScaffoldEventHistory({
+  const {
+    data: eventHistory,
+    isLoading: eventLoading,
+    error: error,
+  } = useScaffoldEventHistory({
     contractName,
     eventName: "CheckRequestSent",
     fromBlock: 0n,
@@ -39,7 +37,34 @@ export const ScamHunterTokenUI = ({}) => {
   });
 
   useEffect(() => {
+    console.log("🚀 ~ ScamHunterTokenUI ~ error:", error);
+    console.log("🚀 ~ useEffect ~ eventLoadingSOLO:", eventLoading);
+  }, [error, eventLoading]);
+
+  // Handling logs from events (real-time)
+  const onLogs = (logs: any) => {
+    console.log("🚀 ~ ONLOGS TRIGGERED");
+    console.log("🚀 ~ onLogs ~ logs:", logs);
+    // setEventLogs(logs);
     if (!eventLoading && Boolean(eventHistory?.length) && (eventHistory?.length as number) > eventLogs.length) {
+      console.log("🚀 ~ useEffect ~ eventHistory DEDANS:", eventHistory);
+
+      // Ensure eventHistory is an array or fallback to []
+      setEventLogs([...(eventHistory || [])].slice(0, 12));
+    }
+  };
+
+  // Listen to real-time events
+  useScaffoldWatchContractEvent({ contractName, eventName: "CheckRequestSent", onLogs });
+
+  useEffect(() => {
+    // console.log("🚀 ~ useEffect ~ eventLoading:", eventLoading)
+    // console.log("🚀 ~ useEffect ~ eventHistory:", eventHistory)
+    // console.log("🚀 ~ useEffect ~ eventLogs:", eventLogs)
+    console.log("🚀 ~ useEffect ~ eventHistory DEHORS:", eventHistory);
+    if (!eventLoading && Boolean(eventHistory?.length) && (eventHistory?.length as number) > eventLogs.length) {
+      console.log("🚀 ~ useEffect ~ eventHistory DEDANS:", eventHistory);
+
       // Ensure eventHistory is an array or fallback to []
       setEventLogs([...(eventHistory || [])].slice(0, 12));
     }
@@ -62,6 +87,8 @@ export const ScamHunterTokenUI = ({}) => {
       </p>
     );
   }
+
+  console.log("Scam...UI EXECUTED");
 
   return (
     <>

@@ -27,8 +27,6 @@ export const Datas = ({ deployedContractData }: { deployedContractData: Contract
   const functionApprove = functionsToDisplay.filter(part => part.name === "approve") as AbiFunction[];
   const functionChecker = functionsToDisplay.filter(part => part.name === "checkVerification") as AbiFunction[];
 
-  console.log("Datas.tsx executed");
-
   return (
     <>
       <article className="bg-base-100 border-base-300 border shadow-md shadow-secondary rounded-3xl px-6 lg:px-8 mb-2 mt-8 space-y-1 py-4 w-min-272 max-w-xl w-full">

@@ -471,7 +471,7 @@ const deployedContracts = {
       },
     },
     ScamHunterToken: {
-      address: "0xECCB180404400E724458b145174fB168b3Fab1BE",
+      address: "0x572EF13A2955ba11a99dAcfa5eA69461d22e1D7b",
       abi: [
         {
           inputs: [

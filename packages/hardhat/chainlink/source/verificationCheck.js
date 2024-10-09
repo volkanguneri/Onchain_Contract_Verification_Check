@@ -3,13 +3,21 @@ if (!secrets.basescanAPIKey) {
   throw new Error("Need basescanAPIKey environment variable");
 }
 
-let verified = false; // Initialize as false
+let verified = false;
 
 // Contract address to check
 const contractAddress = args[0];
+if(contractAddress && contractAddress.trim() !== "") 
+{
+  console.log("Contract Address is not defined")
+}
 
 // API key for Basescan
 const apiKey = secrets.basescanAPIKey; // Your Basescan API key
+if(apiKey && apiKey.trim() !== "") 
+  {
+    console.log("Basescan API Key is not defined")
+  }
 
 try {
   // HTTP request to get the contract source code from Basescan on Sepolia network
@@ -19,6 +27,7 @@ try {
 
   // Check if the HTTP request was successful
   if (basescanResponse.error) {
+      console.log(`HTTP request failed: ${basescanResponse.error}`)
       throw new Error(`HTTP request failed: ${basescanResponse.error}`);
   }
 
@@ -26,18 +35,14 @@ try {
   const { result } = basescanResponse.data;
   if (result && result.length > 0) {
       const { SourceCode } = result[0];
-      console.log("🚀 ~ basescanResponse:", SourceCode);
 
       // Determine if the contract is verified
       if (SourceCode && SourceCode.trim() !== '') {
-          verified = true; // Update to true if verified
+          verified = true;
       } else {
-          verified = false; // Ensure that it's false for any other status
+          verified = false; 
       }
-  } else {
-      throw new Error("Invalid response format or contract not found");
   }
-
 } catch (error) {
   console.error("Error during contract verification:", error.message);
 }

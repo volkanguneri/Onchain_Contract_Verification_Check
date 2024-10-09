@@ -28,16 +28,13 @@ const deployerPrivateKey = process.env.DEPLOYER_PRIVATE_KEY;
 if (!deployerPrivateKey) {
   throw Error("No Valid Private Key");
 }
-const basescanAPIKey = process.env.ETHERSCAN_API_KEY;
+const basescanAPIKey = process.env.BASESCAN_API_KEY;
 if (!basescanAPIKey) {
-  throw Error("No Valid Etherscan Key");
+  throw Error("No Valid Basescan Key");
 }
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
-      {
-        version: "0.8.27",
-      },
       {
         version: "0.8.19",
       },

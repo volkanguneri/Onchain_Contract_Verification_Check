@@ -3,9 +3,9 @@
 
 ## Onchain `Basescan Verification Check` for blockchain addresses via `Chainlink Functions`
 
-The Scam Hunter Token's primary goal is to provide a fully decentralized mechanism to ensure that before interacting with any contract, it checks if the contract is verified on Basescan. This check is conducted using an Onchain Basescan Verification Check.
+The Scam Hunter Token's primary goal is to provide a fully decentralized mechanism to ensure that before interacting with any contract, it checks if the contract is verified on Basescan. This check is conducted using an Onchain BasescanCheck.
 
-The OnChain Basescan Verification Check involves verifying blockchain addresses using Chainlink Functions. Chainlink Functions can be used to request data from off-chain sources like Basescan (the block explorer for Base), which can then return verification status for a particular blockchain address. This check ensures that interactions with your smart contract are only allowed if the blockchain address meets specific verification criteria, like being verified on Basescan.
+The OnChain BasescanCheck involves verifying blockchain addresses using Chainlink Functions. Chainlink Functions can be used to request data from off-chain sources like Basescan (the block explorer for Base), which can then return verification status for a particular blockchain address. This check ensures that interactions with your smart contract are only allowed if the blockchain address meets specific verification criteria, like being verified on Basescan.
 
 Scam Hunter Token uses OnChainAi and Fleek extensions by Kredeum on Scaffold-Eth-2
 
@@ -33,13 +33,13 @@ A running demo of `Scam Hunter Token`  is available on IPFS here:
 
 ## Description 📗
 
-- `Scam Hunter Token` is a Scaffold-eth-2 granted project, allowing you to interact only with verified contracts on Basescan using `Onchain Basescan Verification Check`. 
+- `Scam Hunter Token` is a Scaffold-eth-2 granted project, allowing you to interact only with verified contracts on Basescan using `BasescanCheck`. 
 
-- `Scam Hunter Token` is an on-chain solution for identifying non-verified contracts, which often contain malicious code, as many scam platforms are not verified.
+- `BasescanCheck` is an on-chain solution for identifying non-verified contracts, which often contain malicious code, as many scam platforms are not verified.
 
-- `Scam Hunter Token` uses [`Basescan API`](https://docs.basescan.org/) with [`Chainlink Functions`](https://functions.chain.link/).
+- `Onchain BasescanCheck` uses [`Basescan API`](https://docs.basescan.org/) with [`Chainlink Functions`](https://functions.chain.link/).
 
-Each `Basescan Verification Check` request launched by `Scam Hunter Token` is sent by multiple `Chainlink` servers that have to reach consensus to return a unique answer. 
+Each `BasescanCheck` request launched by `Scam Hunter Token` is sent by multiple `Chainlink` servers that have to reach consensus to return a unique answer. 
 
 `Chainlink` answer can be retrieved only after a few blocks, and may take more than one minute, depending on the network.
 
@@ -48,13 +48,13 @@ Default model will be a fixed price of `0.0002 eth` per request.
 
 BUT this will be changed in the future to a more dynamic pricing model.
 
-- You can use `Basescan Verification Check` as it is, with the contracts already deployed, or you can deploy your own, where you will be able to set your own configuration, and decide on the price of check requests.
+- You can use `BasescanCheck` as it is, with the contracts already deployed, or you can deploy your own, where you will be able to set your own configuration, and decide on the price of check requests.
 
-- `Basescan Verification Check` is available with a `Hardhat` setup with 3 specific AI tasks to help you start with the `` protocol.
+- `BasescanCheck` is available with a `Hardhat` setup with 3 specific tasks to help you start with the protocol.
 
 ## Install 🛠️
 
-Install via this command:
+<!-- Install via this command:
 ```sh
 $ npx create-eth@latest -e kredeum/onchain-ai-extension
 ```
@@ -63,7 +63,7 @@ Then run the following commands to initialize the new repo,
 ```sh
 $ cd <your new repo>
 $ ./init.sh
-```
+``` -->
 
 Finally the classic Scaffold-eth-2 commands in 3 different terminals:
 ```sh
@@ -78,7 +78,7 @@ $ yarn start
 
 In all these commands use `hardhat` option `--network <NETWORK>` to specify the network you want to use.
 
-Note that `Basescan Verification Check` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
+Note that `BasescanCheck` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
 
 ## Usage 💡
 

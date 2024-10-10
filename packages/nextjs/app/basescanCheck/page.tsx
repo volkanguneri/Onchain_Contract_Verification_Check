@@ -16,9 +16,7 @@ const BasescanCheck: NextPage = () => {
             <span className="block text-4xl font-bold">Basescan Verification Check</span>
           </h1>
           <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
-            <p className="my-2 font-medium">
-              Please check if a contract is verified on Basescan before any interaction
-            </p>
+            <p className="my-2 font-medium">Check on-chain contract verification on Basescan</p>
           </div>
         </div>
         <BasescanCheckUI />

@@ -6,7 +6,7 @@ import { types } from "hardhat/config";
 
 basescanCheckScope
   .task("request", "Read last BasescanCheck response [and send BasescanCheck request]")
-  .addOptionalParam("prompt", "OpenAI prompt request for Chainlink", undefined, types.string)
+  .addOptionalParam("prompt", "Basescan prompt request for Chainlink", undefined, types.string)
   .setAction(async (taskArgs, hre) => {
     const chainId = await hre.getChainId();
     const config = readConfig(chainId);

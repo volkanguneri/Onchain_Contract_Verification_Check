@@ -1,5 +1,5 @@
 import { scope } from "hardhat/config";
 
-const basescanCheckScope = scope("ai", "BasescanCheck with Chainlink and Etherscan");
+const basescanCheckScope = scope("bc", "BasescanCheck with Chainlink and Basescan");
 
 export { basescanCheckScope };

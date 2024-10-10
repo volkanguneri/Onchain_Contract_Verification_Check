@@ -1,45 +1,43 @@
 
-# Scam Hunter Token 🤖
+# Basescan Verification Check 
 
 ## Onchain `Basescan Verification Check` for blockchain addresses via `Chainlink Functions`
 
-The Scam Hunter Token's primary goal is to provide a fully decentralized mechanism to ensure that before interacting with any contract, it checks if the contract is verified on Basescan. This check is conducted using an Onchain BasescanCheck.
+The on-chain `Basescan Verification Check` involves checking the verification of blockchain addresses using Chainlink Functions. `Chainlink Functions` is used to request data from off-chain sources like `Basescan` (the block explorer for Base), which then returns verification status for a particular blockchain address. 
 
-The OnChain BasescanCheck involves verifying blockchain addresses using Chainlink Functions. Chainlink Functions can be used to request data from off-chain sources like Basescan (the block explorer for Base), which can then return verification status for a particular blockchain address. This check ensures that interactions with your smart contract are only allowed if the blockchain address meets specific verification criteria, like being verified on Basescan.
+This onchain check could for exemple ensure that interactions with other smart contracts are only allowed if the blockchain address meets specific verification criteria, such as being verified on Basescan or any other block explorers.
 
-Scam Hunter Token uses OnChainAi and Fleek extensions by Kredeum on Scaffold-Eth-2
+Basescan Verification Check is `a first mileston` in the development of dapps more secure and resistent to malicious smart contracts. 
 
-Kredeum extensions on Scaffold-Eth-2
+Basescan Verification Check uses templates of `OnChainAi` and `Fleek` extensions by `Kredeum` on `Scaffold-Eth-2`
+
+##### Kredeum extensions on Scaffold-Eth-2
 *https://github.com/Kredeum/onchain-ai-extension.
 https://github.com/zapaz/fleek-extension*
 
-Scaffold-Eth-2 
+##### Scaffold-Eth-2 
 *https://github.com/scaffold-eth/scaffold-eth-2*
 
-Chainlink Functions (Beta)
+##### Chainlink Functions (Beta)
 *https://docs.chain.link/chainlink-functions/tutorials/api-query-parameters#functionsconsumerexamplesol*
 
 
 ## Demo 👀
 
-A running demo of `Scam Hunter Token`  is available on IPFS here:
+A running demo of `Basescan Verification Check`  is available on Vercel here:
 
-- [https://many-jelly-incalculable.on-fleek.app/onchain-ai/]
-(https://many-jelly-incalculable.on-fleek.app/onchain-ai/)
+- *https://basescancheck.vercel.app/basescanCheck*
 
 <!-- ![OnChainAI](OnChainAI.png) -->
 
 
-
 ## Description 📗
 
-- `Scam Hunter Token` is a Scaffold-eth-2 granted project, allowing you to interact only with verified contracts on Basescan using `BasescanCheck`. 
+- `Basescan Verification Check` is a Scaffold-eth-2 granted project, an on-chain solution for identifying non-verified contracts, which often contain malicious code, as many scam platforms are not verified.
 
-- `BasescanCheck` is an on-chain solution for identifying non-verified contracts, which often contain malicious code, as many scam platforms are not verified.
+- `Basescan Verification Check` uses [`Basescan API`](https://docs.basescan.org/) with [`Chainlink Functions`](https://functions.chain.link/).
 
-- `Onchain BasescanCheck` uses [`Basescan API`](https://docs.basescan.org/) with [`Chainlink Functions`](https://functions.chain.link/).
-
-Each `BasescanCheck` request launched by `Scam Hunter Token` is sent by multiple `Chainlink` servers that have to reach consensus to return a unique answer. 
+Each `Basescan Verification Check` request is sent by multiple `Chainlink` servers that have to reach consensus to return a unique answer. 
 
 `Chainlink` answer can be retrieved only after a few blocks, and may take more than one minute, depending on the network.
 
@@ -48,22 +46,21 @@ Default model will be a fixed price of `0.0002 eth` per request.
 
 BUT this will be changed in the future to a more dynamic pricing model.
 
-- You can use `BasescanCheck` as it is, with the contracts already deployed, or you can deploy your own, where you will be able to set your own configuration, and decide on the price of check requests.
+- You can use `Basescan Verification Check` as it is, with the contracts already deployed, or you can deploy your own, where you will be able to set your own configuration, and decide on the price of check requests.
 
-- `BasescanCheck` is available with a `Hardhat` setup with 3 specific tasks to help you start with the protocol.
+- `Basescan Verification Check` is available with a `Hardhat` setup with 3 specific tasks to help you start with the protocol.
 
 ## Install 🛠️
 
-<!-- Install via this command:
+Install via this command:
 ```sh
-$ npx create-eth@latest -e kredeum/onchain-ai-extension
+git clone "https://github.com/volkanguneri/Onchain_Basescan_Verification_Check.git" 
 ```
 
-Then run the following commands to initialize the new repo,
+Then run the following commands to install the dependencies,
 ```sh
-$ cd <your new repo>
-$ ./init.sh
-``` -->
+$ yarn install
+```
 
 Finally the classic Scaffold-eth-2 commands in 3 different terminals:
 ```sh
@@ -78,21 +75,20 @@ $ yarn start
 
 In all these commands use `hardhat` option `--network <NETWORK>` to specify the network you want to use.
 
-Note that `BasescanCheck` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
+Note that the smart contract `BasescanCheck` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
 
 ## Usage 💡
 
 You can send your prompt to `BasescanCheck.sol` in different ways:
 1. using `debug` page of `Scaffold-eth-2` (`out of the box`)
 2. using `BasescanCheck UI` via the menu link in `Scaffold-eth-2`
-3. using `ScamHunterToken UI` via the menu link in `Scaffold-eth-2` 
-4. using `hardhat ai request` task
-5. via your smartcontracts interacting with `BasescanCheck.sol` as does `ScamHunterToken.sol`
+3. using `hardhat bc request` task
+4. via your smartcontracts interacting with `BasescanCheck.sol`
 
 
 ## Hardhat tasks 🚀
 
-You can run hardhat AI task with `yarn hardhat --network <NETWORK> ai <TASK>`
+You can run hardhat bc task with `yarn hardhat --network <NETWORK> bc <TASK>`
 
 3 tasks available, 1 for the users: `request`, 2 for the `BasescanCheck` admin : `secrets`, `config`
 
@@ -103,16 +99,16 @@ AVAILABLE TASKS:
   request	Read last BasescanCheck response [and send BasescanCheck request]
   secrets	Upload BasescanCheck secrets to Chainlink
 
-ai: BasescanCheck with Chainlink and Basescan
+bc: BasescanCheck with Chainlink and Basescan
 ```
 
 ### `request` task ❓
 **Main task**, to be used to send your prompt
 
-Ex: `yarn hardhat --network baseSepolia ai request --prompt "13 time 5 equal ?"`
+Ex: `yarn hardhat --network baseSepolia bc request --prompt "13 time 5 equal ?"`
 
 ```txt
-Usage: hardhat [GLOBAL OPTIONS] ai request [--prompt <STRING>]
+Usage: hardhat [GLOBAL OPTIONS] bc request [--prompt <STRING>]
 
 OPTIONS:
 
@@ -125,10 +121,10 @@ request: Read last BasescanCheck response [and send BasescanCheck request]
 ### `secrets` task 🔒
 Admin task, to be used to upload your secrets to Chainlink
 
-Ex: `yarn hardhat --network baseSepolia ai secrets --expiration 10`
+Ex: `yarn hardhat --network baseSepolia bc secrets --expiration 10`
 
 ```txt
-Usage: hardhat [GLOBAL OPTIONS] ai secrets [--expiration <INT>]
+Usage: hardhat [GLOBAL OPTIONS] bc secrets [--expiration <INT>]
 
 OPTIONS:
 
@@ -140,10 +136,10 @@ secrets: Upload BasescanCheck secrets to Chainlink
 ### `config` task ⚙️
 Admin task, to manage BasescanCheck configuration
 
-Ex: `yarn hardhat --network baseSepolia ai config --price 0.0002`
+Ex: `yarn hardhat --network baseSepolia bc config --price 0.0002`
 
 ```txt
-Usage: hardhat [GLOBAL OPTIONS] ai config [--chainname <STRING>] [--donid <INT>] [--explorer <STRING>] [--router <STRING>] [--rpc <STRING>] [--subid <INT>]
+Usage: hardhat [GLOBAL OPTIONS] bc config [--chainname <STRING>] [--donid <INT>] [--explorer <STRING>] [--router <STRING>] [--rpc <STRING>] [--subid <INT>]
 
 OPTIONS:
 
@@ -167,10 +163,10 @@ Config file can be found at [packages/hardhat/chainlink/config.json](chainlink/c
 You can define a shortcut in your package.json like that :
 ```json
 "scripts": {
-  "ai": "hardhat --network baseSepolia ai"
+  "bc": "hardhat --network baseSepolia bc"
 }
 ```
-then call it with `yarn ai <TASK> <OPTIONS>`
+then call it with `yarn bc <TASK> <OPTIONS>`
 
 ## OpenAI 🧠
 
@@ -193,11 +189,11 @@ Same ENV values are needed for both `dotenv` and `env-enc`:
 
 ## Limitations 🚧
 
-- `Chainlink Functions` is currently in `beta` so as `BasescanCheck` and `ScamHunterToken` is.
+- `Chainlink Functions` is currently in `beta` so as `BasescanCheck`
 
-- `BasescanCheck` prompt must be and only can be a blockchain adress of a smart contract.
+- `BasescanCheck` prompt must be and only can be a blockchain adress of a smart contract
 
-- `BasescanCheck` answer must very short, in order for `Chainlink Functions` to be able to reach a consensus on an answer.
+- `BasescanCheck` answer must very short, in order for `Chainlink Functions` to be able to reach a consensus on an answer
 
 
 ## Roadmap  ➡️
@@ -206,3 +202,4 @@ Same ENV values are needed for both `dotenv` and `env-enc`:
 - deploy `BasescanCheck` on all networks supported by `Chainlink Functions` (curently as of August 2024 : Ethereum, Arbitrum, Base, Optimism, Polygon, Avalanche)
 - deploy with same address on all networks
 - setup an foundry extension too
+- create smart contracts that use `BasescanCheck` to check other contracts' verification before any interactions with them.

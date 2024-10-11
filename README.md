@@ -12,14 +12,14 @@ Basescan Verification Check is `a first mileston` in the development of dapps mo
 Basescan Verification Check uses templates of `OnChainAi` and `Fleek` extensions by `Kredeum` on `Scaffold-Eth-2`
 
 ##### Kredeum extensions on Scaffold-Eth-2
-*https://github.com/Kredeum/onchain-ai-extension.
-https://github.com/zapaz/fleek-extension*
+ - *https://github.com/Kredeum/onchain-ai-extension.*
+ - *https://github.com/zapaz/fleek-extension*
 
 ##### Scaffold-Eth-2 
-*https://github.com/scaffold-eth/scaffold-eth-2*
+- *https://github.com/scaffold-eth/scaffold-eth-2*
 
 ##### Chainlink Functions (Beta)
-*https://docs.chain.link/chainlink-functions/tutorials/api-query-parameters#functionsconsumerexamplesol*
+- *https://docs.chain.link/chainlink-functions/tutorials/api-query-parameters#functionsconsumerexamplesol*
 
 
 ## Demo 👀
@@ -59,18 +59,18 @@ git clone "https://github.com/volkanguneri/Onchain_Basescan_Verification_Check.g
 
 Then run the following commands to install the dependencies,
 ```sh
-$ yarn install
+yarn install
 ```
 
 Finally the classic Scaffold-eth-2 commands in 3 different terminals:
 ```sh
-$ yarn chain
+yarn chain
 ```
 ```sh
-$ yarn deploy
+yarn deploy
 ```
 ```sh
-$ yarn start
+yarn start
 ```
 
 In all these commands use `hardhat` option `--network <NETWORK>` to specify the network you want to use.
@@ -168,10 +168,20 @@ You can define a shortcut in your package.json like that :
 ```
 then call it with `yarn bc <TASK> <OPTIONS>`
 
-## OpenAI 🧠
+## Basescan API 🧠
 
-A specific `system prompt` is used for each OpenAI request, you can view it inside the javascript code run by `Chainlink DON` : [packages/hardhat/chainlink/source/verificationCheck.js](chainlink/source/verificationCheck.js)
+A specific `http request` is used for each `BasescanCheck` request, you can view it inside the javascript code run by `Chainlink DON` : [packages/hardhat/chainlink/source/verificationCheck.js](packages/hardhat/chainlink/source/verificationCheck.js)
 
+
+## How to use Hardhat Verify Plugin 🤔
+
+if you deploy your own contract you will need to verify it on Basescan. To do this you should uncomment `packages/hardhat/verifyContract/arguments.js` and fill your `router` `javascript` `subscriptionId` `gasLimit` `donIdHex` variables. The Hardhat Verify Plugin requires these variables to pass them to your BasescanCheck constructor for verification.
+
+After that, enter the following command in the terminal:
+
+```sh
+yarn 𝚑𝚊𝚛𝚍𝚑𝚊𝚝 𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
+```
 
 ## Security 🛡️
 In order to never store your secrets and private keys in plain text on your hard disk (["hi @PatrickAlphaC"](https://www.youtube.com/watch?v=CIbhqRJ4B8I)), this extension use `Chainlink env-enc` module to encrypt your secrets before storing them.
@@ -184,8 +194,7 @@ Same ENV values are needed for both `dotenv` and `env-enc`:
 - `DEPLOYER_PRIVATE_KEY` : private key of the deployer
 - `ALCHEMY_API_KEY` : alchemy api key
 - `BASESCAN_API_KEY` : basescan API key
-
-- `BASESCAN_API_KEY` : will be uploaded in a secure way to `Chainlink DON`  (don't use centralized S3 solutions also proposed by `Chainlink`)
+- `BASESCAN_API_KEY` : COULD be uploaded in a secure way to `Chainlink DON`  (don't use centralized S3 solutions also proposed by `Chainlink`)
 
 ## Limitations 🚧
 
@@ -197,9 +206,9 @@ Same ENV values are needed for both `dotenv` and `env-enc`:
 
 
 ## Roadmap  ➡️
-- deploy on Mainnet: requires some tuning on requested price, using some `Chainlink Oracle Price feed`
+- create smart contracts that use `BasescanCheck` to check other contracts' verification before any interactions with them
 - implement other networks: `optimismSepolia`, `arbitrumSepolia` etc.
+- deploy on Mainnet: requires some tuning on requested price, using some `Chainlink Oracle Price feed`
 - deploy `BasescanCheck` on all networks supported by `Chainlink Functions` (curently as of August 2024 : Ethereum, Arbitrum, Base, Optimism, Polygon, Avalanche)
 - deploy with same address on all networks
 - setup an foundry extension too
-- create smart contracts that use `BasescanCheck` to check other contracts' verification before any interactions with them.

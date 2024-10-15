@@ -1,16 +1,23 @@
-// const { readJavascript} = require("/root/BasescanCheck/packages/hardhat/chainlink/lib/utils");
-// // and also create your own javascript file and rename it if necessary in chainlink/source/verificationCheck.js
+const { readJavascript, readConfig } = require("/root/ContractVerificatonCheck/packages/hardhat/chainlink/lib/utils");
+const { ethers } = require("hardhat");
 
-// const router = ;
-// subscriptionId = ;
-// const javascript = readJavascript("verificationCheck.js");
-// const gasLimit = ;
-// const donIdHex = ;
+// Récupérer les paramètres depuis le fichier de configuration en fonction du chainId
+const chainId = 84532;
+const { router, subscriptionId, donId} = readConfig(chainId);
 
-// module.exports = [
-//     router,
-//     javascript,
-//     subscriptionId,
-//     gasLimit,
-//     donIdHex,
-// ];
+// Autres paramètres
+const javascript = readJavascript("httpRequest.js");
+const gasLimit = 300000;
+
+// Convertir la chaîne en bytes32
+const donIdHex = ethers.utils.formatBytes32String(donId);
+
+console.log("🚀 ~ donIdHex:", donIdHex);
+
+module.exports = [
+    router,
+    javascript,
+    subscriptionId,
+    gasLimit,
+    donIdHex,
+];

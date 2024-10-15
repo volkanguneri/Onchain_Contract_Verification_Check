@@ -13,8 +13,8 @@ import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
-export const BasescanCheckUI = ({}) => {
-  const contractName = "BasescanCheck";
+export const VerificationCheckUI = ({}) => {
+  const contractName = "VerificationCheck";
   const txValue = "2000000000000000";
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(

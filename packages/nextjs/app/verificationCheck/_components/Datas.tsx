@@ -1,4 +1,4 @@
-import { BasescanCheckVariable } from "./BasescanCheckVariable";
+import { VerificationCheckVariable } from "./VerificationCheckVariable";
 import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
 
 export const Datas = ({
@@ -13,7 +13,7 @@ export const Datas = ({
   return (
     <>
       <article className="bg-base-100 border-base-300 border shadow-md shadow-secondary rounded-3xl px-6 lg:px-8 mb-2 mt-8 space-y-1 py-4 w-min-272 max-w-xl w-full">
-        <BasescanCheckVariable
+        <VerificationCheckVariable
           deployedContractData={deployedContractData}
           abiFunction={"lastUserPrompt"}
           label={"Last Prompt"}
@@ -21,7 +21,7 @@ export const Datas = ({
           loading={false}
         />
 
-        <BasescanCheckVariable
+        <VerificationCheckVariable
           deployedContractData={deployedContractData}
           abiFunction={"lastResponse"}
           label={"Last Response"}

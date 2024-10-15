@@ -1,11 +1,11 @@
-import { basescanCheckScope } from "./scope";
+import { verificationCheckScope } from "./scope";
 import { readConfig, writeConfig } from "../lib/utils";
-import { BasescanCheck } from "../../typechain-types";
-import AbiBasescanCheck from "../abis/BasescanCheck.json";
+import { VerificationCheck } from "../../typechain-types";
+import AbiVerificationCheck from "../abis/VerificationCheck.json";
 import { types } from "hardhat/config";
 
-basescanCheckScope
-  .task("config", "Display [and update] BasescanCheck config")
+verificationCheckScope
+  .task("config", "Display [and update] VerificationCheck config")
   .addOptionalParam("donid", "Chainlink DON Id", undefined, types.int)
   .addOptionalParam("subid", "Chainlink Subscription Id", undefined, types.int)
   .addOptionalParam("router", "Chainlink router address", undefined, types.string)
@@ -19,39 +19,39 @@ basescanCheckScope
     console.log(config);
 
     const [signer] = await hre.ethers.getSigners();
-    const basescanCheck = (await hre.ethers.getContractAt(
-      AbiBasescanCheck,
-      config.basescanCheck,
+    const VerificationCheck = (await hre.ethers.getContractAt(
+      AbiVerificationCheck,
+      config.verificationCheck,
       signer,
-    )) as unknown as BasescanCheck;
-    console.log("🚀 ~ .setAction ~ basescanCheck:", basescanCheck);
+    )) as unknown as VerificationCheck;
+    console.log("🚀 ~ .setAction ~ VerificationCheck:", VerificationCheck);
 
     let update = false;
 
     // onchain config
     if (taskArgs.donid) {
       console.log("🚀 ~ .setAction ~ taskArgs.donid:", taskArgs.donid);
-      if (taskArgs.donid != (await basescanCheck.donId())) {
-        const tx = await basescanCheck.setDonID(taskArgs.donid);
-        console.log("BasescanCheck setDonID Request", taskArgs.donid, `${config.explorer}/tx/${tx.hash}`);
+      if (taskArgs.donid != (await VerificationCheck.donId())) {
+        const tx = await VerificationCheck.setDonID(taskArgs.donid);
+        console.log("VerificationCheck setDonID Request", taskArgs.donid, `${config.explorer}/tx/${tx.hash}`);
         const res = await tx.wait();
-        console.log("BasescanCheck setDonID Result", res?.status || "no status");
+        console.log("VerificationCheck setDonID Result", res?.status || "no status");
       }
       writeConfig(chainId, "donId", taskArgs.donid);
       update = true;
     }
     if (taskArgs.subid) {
-      if (taskArgs.subid != (await basescanCheck.subscriptionId())) {
-        const tx = await basescanCheck.setSubscriptionId(taskArgs.subid);
-        console.log("BasescanCheck setSubscriptionId Request", taskArgs.subid, `${config.explorer}/tx/${tx.hash}`);
+      if (taskArgs.subid != (await VerificationCheck.subscriptionId())) {
+        const tx = await VerificationCheck.setSubscriptionId(taskArgs.subid);
+        console.log("VerificationCheck setSubscriptionId Request", taskArgs.subid, `${config.explorer}/tx/${tx.hash}`);
         const res = await tx.wait();
-        console.log("BasescanCheck setSubscriptionId Result", res?.status || "no status");
+        console.log("VerificationCheck setSubscriptionId Result", res?.status || "no status");
       }
       writeConfig(chainId, "subscriptionId", taskArgs.subid);
       update = true;
     }
     if (taskArgs.router) {
-      if (config.basescanCheck) console.error("Cannot update router after deployment, must redeploy");
+      if (config.verificationCheck) console.error("Cannot update router after deployment, must redeploy");
       writeConfig(chainId, "router", taskArgs.router);
       update = true;
     }

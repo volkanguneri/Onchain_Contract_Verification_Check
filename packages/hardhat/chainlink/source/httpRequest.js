@@ -12,15 +12,15 @@ if(contractAddress && contractAddress.trim() !== "")
   console.log("Contract Address is not defined")
 }
 
-// API key for Basescan
-const apiKey = secrets.basescanAPIKey; // Your Basescan API key
+// API key for Block Explorer
+const apiKey = secrets.basescanAPIKey; // Your Block Explorer API key
 if(apiKey && apiKey.trim() !== "") 
   {
-    console.log("Basescan API Key is not defined")
+    console.log("Block Explorer API Key is not defined")
   }
 
 try {
-  // HTTP request to get the contract source code from Basescan on Sepolia network
+  // HTTP request to get the contract source code from Block Explorer on Base Sepolia network
   const basescanResponse = await Functions.makeHttpRequest({
       url: `https://api-sepolia.basescan.org/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${apiKey}`,
   });

@@ -5,14 +5,14 @@ decodeConfig();
 import { ethers } from "ethers-v5";
 import { types } from "hardhat/config";
 import { SecretsManager } from "@chainlink/functions-toolkit";
-import { basescanCheckScope } from "./scope";
-import { BasescanCheck } from "../../typechain-types"; // Updated type
-import AbiBasescanCheck from "../abis/BasescanCheck.json"; // Updated ABI
+import { verificationCheckScope } from "./scope";
+import { VerificationCheck } from "../../typechain-types"; // Updated type
+import AbiVerificationCheck from "../abis/VerificationCheck.json"; // Updated ABI
 import { readConfig } from "../lib/utils";
 
-// Task to upload BasescanCheck secrets to Chainlink
-basescanCheckScope
-  .task("secrets", "Upload BasescanCheck secrets to Chainlink")
+// Task to upload VerificationCheck secrets to Chainlink
+verificationCheckScope
+  .task("secrets", "Upload VerificationCheck secrets to Chainlink")
   .addOptionalParam("expiration", "Expiration time in minutes of uploaded secrets", 60, types.int)
   .setAction(async (taskArgs, hre) => {
     const chainId = await hre.getChainId();
@@ -66,14 +66,14 @@ basescanCheckScope
     // Update onchain `donHostedSecretsVersion`
     if (uploadResult.success) {
       const [signer] = await hre.ethers.getSigners();
-      const basescanCheck = (await hre.ethers.getContractAt(
-        AbiBasescanCheck,
-        readConfig(chainId).basescanCheck, // Updated contract address
+      const verificationCheck = (await hre.ethers.getContractAt(
+        AbiVerificationCheck,
+        readConfig(chainId).verificationCheck, // Updated contract address
         signer,
-      )) as unknown as BasescanCheck;
+      )) as unknown as VerificationCheck;
 
       // Update onchain `donHostedSecretsVersion`
-      const tx = await basescanCheck.setDonHostedSecretsVersion(uploadResult.version);
+      const tx = await verificationCheck.setDonHostedSecretsVersion(uploadResult.version);
       console.log("setDonHostedSecretsVersion Request", uploadResult.version, `${explorer}/tx/${tx.hash}`);
       const res = await tx.wait();
       console.log("setDonHostedSecretsVersion Result", res?.status || "no status");

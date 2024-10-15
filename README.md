@@ -5,15 +5,14 @@
 
 The on-chain `Contract Verification Check` involves checking the verification of blockchain addresses using Chainlink Functions. `Chainlink Functions Beta` is used to request data from off-chain sources like block explorers (`Etherscan`, `Basescan` ...), which then returns verification status for a particular blockchain address. 
 
-This onchain check could for exemple ensure that interactions with other smart contracts are only allowed if the blockchain address meets specific verification criteria, such as being verified on Basescan or any other block explorers.
+This onchain check could for exemple ensure that interactions with other smart contracts are only allowed if the blockchain address meets specific verification criteria, such as being verified on `Basescan` or any other block explorers. For this first milestone we use only `Basescan` as block explorer. 
 
 Contract Verification Check is `a first mileston` in the development of dapps more secure and resistent to malicious smart contracts. 
 
-Contract Verification Check uses templates of `OnChainAi` and `Fleek` extensions by `Kredeum` on `Scaffold-Eth-2`
+Contract Verification Check uses templates of `OnChainAi` extension by `Kredeum` on `Scaffold-Eth-2`
 
-##### Kredeum extensions on Scaffold-Eth-2
+##### Kredeum extension on Scaffold-Eth-2
  - *https://github.com/Kredeum/onchain-ai-extension.*
- - *https://github.com/zapaz/fleek-extension*
 
 ##### Scaffold-Eth-2 
 - *https://github.com/scaffold-eth/scaffold-eth-2*
@@ -26,7 +25,7 @@ Contract Verification Check uses templates of `OnChainAi` and `Fleek` extensions
 
 A running demo of `Contract Verification Check`  is available on Vercel here:
 
-- *https://VerificationCheck.vercel.app/verificationCheck*
+- *https://verificationcheck.vercel.app/verificationCheck*
 
 <!-- ![OnChainAI](OnChainAI.png) -->
 
@@ -150,12 +149,12 @@ OPTIONS:
   --rpc      	Base Rpc url
   --subid    	Chainlink Subscription Id
 
-config: Display [and update] OnChainAI config
+config: Display [and update] VerificationCheck config
 ```
 
 Any updated value, will be written to the config file, and store onchain for `donid`and `subid`
 
-Router address must be set **before** deployment of a new version of `OnChainAI` contract.
+Router address must be set **before** deployment of a new version of `VerificationCheck.sol` contract.
 
 Config file can be found at [packages/hardhat/chainlink/config.json](chainlink/config.json)
 
@@ -175,12 +174,12 @@ A specific `http request` is used for each `VerificationCheck` request, you can 
 
 ## How to use Hardhat Verify Plugin 🤔
 
-if you deploy your own contract you will need to verify it on Basescan. To do this you should uncomment `packages/hardhat/verifyContract/arguments.js` and fill your `router` `javascript` `subscriptionId` `gasLimit` `donIdHex` variables. The Hardhat Verify Plugin requires these variables to pass them to your VerificationCheck constructor for verification.
+if you deploy your own contract you will need to verify it on the block explorer that you use. To do this you should uncomment `packages/hardhat/verifyContract/arguments.js` and fill your `router` `javascript` `subscriptionId` `gasLimit` `donIdHex` variables. The Hardhat Verify Plugin requires these variables to pass them to your VerificationCheck constructor for verification.
 
 After that, enter the following command in the terminal:
 
 ```sh
-npx 𝚑𝚊𝚛𝚍𝚑𝚊𝚝 𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
+npx 𝚑𝚊𝚛𝚍𝚑𝚊𝚝 𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --contract contracts/YourContract.sol:YourContract  --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
 ```
 
 ## Security 🛡️

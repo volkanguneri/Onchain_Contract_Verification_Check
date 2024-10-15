@@ -75,13 +75,13 @@ yarn start
 
 In all these commands use `hardhat` option `--network <NETWORK>` to specify the network you want to use.
 
-Note that the smart contract `VerificationCheck` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
+Note that the smart contract `VerificationCheck.sol` will not work on `hardhat` network (no `Chainlink` there...), so rather use a tesnet like `baseSepolia` (avoid `Sepolia` that is slower).
 
 ## Usage 💡
 
 You can send your prompt to `VerificationCheck.sol` in different ways:
 1. using `debug` page of `Scaffold-eth-2` (`out of the box`)
-2. using `VerificationCheck UI` via the menu link in `Scaffold-eth-2`
+2. using `Contract Verification Check UI` via the menu link in `Scaffold-eth-2`
 3. using `hardhat bc request` task
 4. via your smartcontracts interacting with `VerificationCheck.sol`
 
@@ -90,7 +90,7 @@ You can send your prompt to `VerificationCheck.sol` in different ways:
 
 You can run hardhat bc task with `yarn hardhat --network <NETWORK> bc <TASK>`
 
-3 tasks available, 1 for the users: `request`, 2 for the `VerificationCheck` admin : `secrets`, `config`
+3 tasks available, 1 for the users: `request`, 2 for the `VerificationCheck.sol` admin : `secrets`, `config`
 
 ```txt
 AVAILABLE TASKS:
@@ -170,7 +170,7 @@ then call it with `yarn bc <TASK> <OPTIONS>`
 
 ## Basescan API 🧠
 
-A specific `http request` is used for each `VerificationCheck` request, you can view it inside the javascript code run by `Chainlink DON` : [packages/hardhat/chainlink/source/verificationCheck.js](packages/hardhat/chainlink/source/verificationCheck.js)
+A specific `http request` is used for each `VerificationCheck` request, you can view it inside the javascript code run by `Chainlink DON` : [packages/hardhat/chainlink/source/httpRequest.js](packages/hardhat/chainlink/source/httpRequest.js)
 
 
 ## How to use Hardhat Verify Plugin 🤔
@@ -180,7 +180,7 @@ if you deploy your own contract you will need to verify it on Basescan. To do th
 After that, enter the following command in the terminal:
 
 ```sh
-yarn 𝚑𝚊𝚛𝚍𝚑𝚊𝚝 𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
+npx 𝚑𝚊𝚛𝚍𝚑𝚊𝚝 𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
 ```
 
 ## Security 🛡️

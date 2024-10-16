@@ -27,7 +27,7 @@ A running demo of `Contract Verification Check`  is available on Vercel here:
 
 - *https://verificationcheck.vercel.app/verificationCheck*
 
-<!-- ![OnChainAI](OnChainAI.png) -->
+![Contract Verification Check](verificationCheck.PNG)
 
 
 ## Description 📗
@@ -179,8 +179,12 @@ if you deploy your own contract you will need to verify it on the block explorer
 After that, enter the following command in the terminal:
 
 ```sh
-npx 𝚑𝚊𝚛𝚍𝚑𝚊𝚝 𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --contract contracts/YourContract.sol:YourContract  --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
+yarn 𝚑𝚊𝚛𝚍𝚑𝚊𝚝-𝚟𝚎𝚛𝚒𝚏𝚢 --network <network> --contract contracts/YourContract.sol:YourContract  --𝚌𝚘𝚗𝚜𝚝𝚛𝚞𝚌𝚝𝚘𝚛-𝚊𝚛𝚐𝚜 𝚊𝚛𝚐𝚞𝚖𝚎𝚗𝚝𝚜.𝚓𝚜 𝙳𝙴𝙿𝙻𝙾𝚈𝙴𝙳_𝙲𝙾𝙽𝚃𝚁𝙰𝙲𝚃_𝙰𝙳𝙳𝚁𝙴𝚂𝚂
 ```
+Exemple: 
+```sh
+yarn hardhat-verify --network baseSepolia --contract contracts/VerificationCheck.sol:VerificationCheck --constructor-args verifyContract/arguments.js 0xDdcEaFa9F2C0c9ad2f34E42F02c04Cd9F1830d0f
+``` 
 
 ## Security 🛡️
 In order to never store your secrets and private keys in plain text on your hard disk (["hi @PatrickAlphaC"](https://www.youtube.com/watch?v=CIbhqRJ4B8I)), this extension use `Chainlink env-enc` module to encrypt your secrets before storing them.

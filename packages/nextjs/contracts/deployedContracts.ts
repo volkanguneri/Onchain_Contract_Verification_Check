@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   84532: {
     VerificationCheck: {
-      address: "0xDdcEaFa9F2C0c9ad2f34E42F02c04Cd9F1830d0f",
+      address: "0xf74E2C20Dc3f5d42B658F409dED0aF6Fb772cFca",
       abi: [
         {
           inputs: [

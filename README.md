@@ -29,6 +29,7 @@ A running demo of `Contract Verification Check`  is available on Vercel here:
 
 ![Contract Verification Check](verificationCheck.PNG)
 
+-  [Click here for a video presentation](https://www.loom.com/share/66155c20d0d6496b9221d40ff46d95ee)
 
 ## Description 📗
 
